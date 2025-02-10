@@ -39,7 +39,9 @@ export const fetchUserBudgetData = async (email: string) => {
 // Edit a transaction based on transaction ID
 export const editTransaction = async (transactionId: string, updatedData: undefined) => {
   try {
-    const response = await axios.put(`${apiUrl}/edit-transaction/${transactionId}`, updatedData);
+   
+    const response = await axios.put(`${apiUrl}/api/user/edit-transaction/${transactionId}`, updatedData);
+   
     return response.data; // Expected structure of updated transaction
   } catch (error) {
     console.error('Error editing transaction:', error);
