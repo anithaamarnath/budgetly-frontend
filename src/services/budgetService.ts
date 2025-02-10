@@ -6,8 +6,6 @@ const apiUrl = import.meta.env.VITE_API_URL;
 
 
 export const addTransaction = async (email: string, transaction: { category: string; amount: number; date: string }) => {
-  console.log("Adding transaction...", email, transaction);
-  console.log("API", apiUrl);
   try {
     const response = await axios.post(`${apiUrl}/api/user/add-transaction/${email}`, transaction);  // Updated route
     console.log("Added transaction:", response.data);
@@ -21,7 +19,7 @@ export const addTransaction = async (email: string, transaction: { category: str
 
 
 export const fetchUserBudgetData = async (email: string) => {
-  console.log("Fetching data ", apiUrl);
+
   try {
     const response = await fetch(`${apiUrl}/api/user/${email}`);
     console.log("Fetching response ", response);
@@ -42,7 +40,7 @@ export const fetchUserBudgetData = async (email: string) => {
 // Edit a transaction based on transaction ID
 export const editTransaction = async (transactionId: string, updatedData: undefined) => {
   try {
-    const response = await axios.put(`${API_URL}/edit-transaction/${transactionId}`, updatedData);
+    const response = await axios.put(`${apiUrl}/edit-transaction/${transactionId}`, updatedData);
     return response.data; // Expected structure of updated transaction
   } catch (error) {
     console.error('Error editing transaction:', error);
