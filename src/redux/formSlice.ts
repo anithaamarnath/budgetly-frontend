@@ -9,6 +9,8 @@ const initialState: FormState = {
   confirmPassword: "",
   error: null,
   loading: false,
+  token: "",
+  isLoggedIn: false
 };
 
 const formSlice = createSlice({
