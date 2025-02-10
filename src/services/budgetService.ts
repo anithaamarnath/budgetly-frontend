@@ -8,7 +8,6 @@ const apiUrl = import.meta.env.VITE_API_URL;
 export const addTransaction = async (email: string, transaction: { category: string; amount: number; date: string }) => {
   try {
     const response = await axios.post(`${apiUrl}/api/user/add-transaction/${email}`, transaction);  // Updated route
-    console.log("Added transaction:", response.data);
     return response.data; // Return the added transaction
   } catch (error) {
     console.error("Error adding transaction:", error);
@@ -22,7 +21,7 @@ export const fetchUserBudgetData = async (email: string) => {
 
   try {
     const response = await fetch(`${apiUrl}/api/user/${email}`);
-    console.log("Fetching response ", response);
+
     if (!response.ok) {
       throw new Error(`Failed to fetch user transactions: ${response.statusText}`);
     }
@@ -73,7 +72,7 @@ export const updateTotalBudget = async (email: string, totalBudget: number) => {
       },
     });
 
-    console.log('Updated budget:', response.data);
+  
     return response.data;
   } catch (error) {
     console.error("Error updating budget:", error);
