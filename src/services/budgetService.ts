@@ -60,9 +60,7 @@ export const deleteTransaction = async (transactionId: string) => {
 
 export const updateTotalBudget = async (email: string, totalBudget: number) => {
   try {
-    console.log('email', email);
-    console.log('totalBudget', totalBudget);
-
+   
     // Pass email as a URL parameter and the totalBudget in the request body
     const response = await axios.put(`${apiUrl}/api/user/update-budget/${email}`, {
       email, totalBudget, // Send totalBudget in the request body
