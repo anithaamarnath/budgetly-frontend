@@ -10,8 +10,6 @@ const LandingPage: React.FC = () => {
   const navigate = useNavigate();
 
   // Handle the button click event
-  const handleGetStartedClick = () => {
-    console.log("Before Navigating to signup form");
     navigate("/signup"); // Navigate to the signup form
   };
   return (
