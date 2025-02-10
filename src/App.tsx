@@ -8,7 +8,7 @@ import { Container } from "./styles/styled";
 import SignupForm from "./SignupForm";
 import Dashboard from "./Dashboard";
 import NewEntryForm from "./NewEntryForm";
-import PrivateRoute from "./components/PrivateRoute";
+import PrivateRoute from "./components/PrivateRoute"; // Import PrivateRoute
 
 const App: React.FC = () => {
   return (
@@ -28,7 +28,14 @@ const App: React.FC = () => {
               </PrivateRoute>
             }
           />
-          <Route path="/addNew" element={<NewEntryForm />} />
+          <Route
+            path="/addNew"
+            element={
+              <PrivateRoute>
+                <NewEntryForm />
+              </PrivateRoute>
+            }
+          />
         </Routes>
         <Footer />
       </Container>

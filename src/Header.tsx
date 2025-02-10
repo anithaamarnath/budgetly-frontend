@@ -5,12 +5,14 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./redux/store";
 import { logout } from "./redux/authSlices";
+import { Link } from "react-router-dom"; // Import Link for routing
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
+  console.log("HELO", isLoggedIn);
 
   // Toggle menu visibility
   const toggleMenu = () => {
@@ -33,13 +35,13 @@ const Header: React.FC = () => {
         <Nav>
           {isLoggedIn ? (
             <>
-              <a href="#dashboard">Dashboard</a>
-              <a href="#addExpense">Add Expense</a>
+              <Link to="/dashboard">Dashboard</Link> {/* Updated to Link */}
+              <Link to="/addNew">Add Expense</Link> {/* Updated to Link */}
               <LogoutButton onLogout={handleLogout} />
             </>
           ) : (
             <>
-              <a href="/login">Login</a>
+              <Link to="/login">Login</Link> {/* Updated to Link */}
             </>
           )}
         </Nav>
