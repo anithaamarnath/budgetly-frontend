@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { addTransaction } from "./services/budgetService"; // Import the service function
+import { addTransaction } from "./services/budgetService";
+import { useSelector } from "react-redux";
+import { RootState } from "./redux/store";
 
 const FormContainer = styled.div`
   max-width: 400px;
@@ -71,14 +73,24 @@ const Button = styled.button`
   }
 `;
 
+const SuccessMessage = styled.div`
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 5px;
+  text-align: center;
+  font-weight: bold;
+  border: 1px solid #c3e6cb;
+`;
+
 const NewEntryForm: React.FC = () => {
   const [date, setDate] = useState<string>("");
   const [amount, setAmount] = useState<number | string>("");
   const [category, setCategory] = useState<string>("");
   const [notes, setNotes] = useState<string>("");
-
-  // Assume `email` is obtained from the context, authentication, or props
-  const email = "test@dev.com"; // Replace this with the dynamic email value
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const email = useSelector((state: RootState) => state.auth.email);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -91,22 +103,21 @@ const NewEntryForm: React.FC = () => {
     const transaction = {
       category,
       amount: Number(amount),
-      description: notes, // Use 'notes' as description
+      description: notes,
       date,
     };
 
     try {
-      // Call the addTransaction service to send the data to the backend
-      const addedTransaction = await addTransaction(email, transaction);
+      await addTransaction(email, transaction);
 
-      // Reset the form after successful submission
       setDate("");
       setAmount("");
       setCategory("");
       setNotes("");
 
-      // Optionally, show a success message or update the state
-      alert("Transaction added successfully!");
+      setSuccessMessage("Transaction added successfully!");
+
+      setTimeout(() => setSuccessMessage(null), 3000); // Hide after 3 seconds
     } catch (error) {
       console.error("Error adding transaction:", error);
       alert("There was an error adding the transaction.");
@@ -168,6 +179,8 @@ const NewEntryForm: React.FC = () => {
 
         <Button type="submit">Add Entry</Button>
       </Form>
+
+      {successMessage && <SuccessMessage>{successMessage}</SuccessMessage>}
     </FormContainer>
   );
 };
