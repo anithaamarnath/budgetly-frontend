@@ -28,7 +28,14 @@ const App: React.FC = () => {
               </PrivateRoute>
             }
           />
-          <Route path="/addNew" element={<NewEntryForm />} />
+          <Route
+            path="/addNew"
+            element={
+              <PrivateRoute>
+                <NewEntryForm />
+              </PrivateRoute>
+            }
+          />
         </Routes>
         <Footer />
       </Container>

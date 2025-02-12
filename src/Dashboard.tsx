@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { Line } from "react-chartjs-2";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPencilAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPencilAlt,
+  faTrashAlt,
+  faSave,
+} from "@fortawesome/free-solid-svg-icons";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -13,10 +17,16 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { fetchUserBudgetData } from "./services/budgetService";
+import {
+  fetchUserBudgetData,
+  editTransaction,
+  deleteTransaction,
+  updateTotalBudget,
+} from "./services/budgetService";
 import { setBudgetData } from "./redux/budgetSlices";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./redux/store";
+import moment from "moment";
 
 ChartJS.register(
   CategoryScale,
@@ -28,18 +38,18 @@ ChartJS.register(
   Legend
 );
 
-export const DashboardContainer = styled.div`
+const DashboardContainer = styled.div`
   padding: 20px;
   font-family: Arial, sans-serif;
 `;
 
-export const Row = styled.div`
+const Row = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
 `;
 
-export const Card = styled.div`
+const Card = styled.div`
   flex: 1;
   margin: 0 10px;
   padding: 20px;
@@ -48,7 +58,7 @@ export const Card = styled.div`
   background-color: #f9f9f9;
 `;
 
-export const ChartContainer = styled.div`
+const ChartContainer = styled.div`
   margin: 20px 0;
   padding: 20px;
   border: 1px solid #ccc;
@@ -56,86 +66,69 @@ export const ChartContainer = styled.div`
   background-color: #f9f9f9;
 `;
 
-export const Table = styled.table`
+const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
 `;
 
-export const TableHeader = styled.th`
+const TableHeader = styled.th`
   border: 1px solid #ccc;
   padding: 8px;
   text-align: left;
   background-color: #f2f2f2;
 `;
 
-export const TableCell = styled.td`
+const TableCell = styled.td`
   border: 1px solid #ccc;
   padding: 8px;
 `;
 
-export const Input = styled.input`
+const Input = styled.input`
   padding: 5px;
   font-size: 1em;
 `;
 
-export const EditIcon = styled(FontAwesomeIcon)`
+const EditIcon = styled(FontAwesomeIcon)`
   cursor: pointer;
   color: #007bff;
   margin-left: 10px;
 `;
 
+const SaveIcon = styled(FontAwesomeIcon)`
+  cursor: pointer;
+  color: #28a745; /* You can change the color to green to signify saving */
+  margin-left: 10px;
+`;
+
+const DeleteIcon = styled(FontAwesomeIcon)`
+  cursor: pointer;
+  color: #dc3545;
+  margin-left: 10px;
+`;
+
 const Dashboard: React.FC = () => {
   const dispatch = useDispatch();
-  const [totalBudget, setTotalBudget] = useState(5000);
-  const [totalAmountSpent, setTotalAmountSpent] = useState(2500);
-  const [remainingBudget, setRemainingBudget] = useState(2500);
+  const { totalBudget, totalAmountSpent, remainingBudget, transactions } =
+    useSelector((state: RootState) => state.budget);
+  const email = useSelector((state: RootState) => state.auth?.email);
+  const budgetData = useSelector((state) => state.budget);
+
   const [isEditing, setIsEditing] = useState(false);
   const [editedValue, setEditedValue] = useState<number | string>("");
+  const [editTransactionId, setEditTransactionId] = useState<string | null>(
+    null
+  );
+  const [editCategory, setEditCategory] = useState<string>("");
+  const [editAmount, setEditAmount] = useState<number | string>("");
 
-  const email = useSelector((state: RootState) => state.auth?.email);
-
-  const transactions = [
-    { date: "2024-12-01", category: "Groceries", amount: 200 },
-    { date: "2024-12-05", category: "Rent", amount: 1200 },
-    { date: "2024-12-10", category: "Utilities", amount: 150 },
-    { date: "2024-12-15", category: "Transportation", amount: 100 },
-  ];
-
-  const chartData = {
-    labels: transactions.map((transaction) => transaction.date),
-    datasets: [
-      {
-        label: "Spending Over Time",
-        data: transactions.map((transaction) => transaction.amount),
-        borderColor: "#42a5f5",
-        backgroundColor: "rgba(66, 165, 245, 0.2)",
-        fill: true,
-      },
-    ],
-  };
-
-  const handleEditClick = () => {
-    setIsEditing(true);
-    setEditedValue(totalBudget);
-  };
-
-  const handleSave = () => {
-    const updatedBudget = Number(editedValue);
-    setTotalBudget(updatedBudget);
-    setRemainingBudget(updatedBudget - totalAmountSpent);
-    setIsEditing(false);
-  };
-
-  // Fetch data when the component mounts
   useEffect(() => {
     const fetchBudgetData = async () => {
       try {
-        console.log("Fetching budget data...", email);
         if (email) {
           const budgetData = await fetchUserBudgetData(email);
-          console.log("Fetched budget data:", budgetData);
-          dispatch(setBudgetData(budgetData)); // Dispatch the fetched data
+
+          dispatch(setBudgetData(budgetData));
         } else {
           console.error("Email is null");
         }
@@ -147,11 +140,98 @@ const Dashboard: React.FC = () => {
     fetchBudgetData();
   }, [dispatch, email]);
 
+  const handleEditClick = () => {
+    setIsEditing(true);
+    setEditedValue(totalBudget);
+  };
+
+  const handleSave = async () => {
+    const updatedBudget = Number(editedValue);
+
+    try {
+      if (!email) {
+        return;
+      }
+
+      const updatedData = await updateTotalBudget(email, updatedBudget);
+
+      dispatch(setBudgetData(updatedData));
+
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Error updating budget:", error);
+    }
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleEditTransaction = (transaction: any) => {
+    setEditTransactionId(transaction._id);
+    setEditCategory(transaction.category || "");
+    setEditAmount(transaction.amount || "");
+  };
+
+  const handleSaveTransaction = async () => {
+    if (!email || !editTransactionId) return;
+
+    const updatedTransaction = {
+      category: editCategory,
+      amount: Number(editAmount),
+    };
+
+    try {
+      const updatedData = await editTransaction(
+        editTransactionId,
+        updatedTransaction
+      );
+
+      dispatch(setBudgetData(updatedData));
+
+      setEditTransactionId(null);
+      setEditCategory("");
+      setEditAmount("");
+    } catch (error) {
+      console.error("Error editing transaction:", error);
+    }
+  };
+
+  const handleDeleteTransaction = async (transactionId: string) => {
+    try {
+      const response = await deleteTransaction(transactionId);
+
+      dispatch(
+        setBudgetData({
+          ...budgetData,
+          transactions: budgetData.transactions.filter(
+            (t) => t._id !== transactionId
+          ),
+          totalAmountSpent: response.totalAmountSpent,
+          remainingBudget: response.remainingBudget,
+        })
+      );
+    } catch (error) {
+      console.error("Error deleting transaction:", error);
+    }
+  };
+
+  const chartData = {
+    labels: transactions.map((transaction) =>
+      moment(transaction.date).format("MM/DD/YYYY")
+    ),
+    datasets: [
+      {
+        label: "Spending Over Time",
+        data: transactions.map((transaction) => transaction.amount),
+        borderColor: "#42a5f5",
+        backgroundColor: "rgba(66, 165, 245, 0.2)",
+        fill: true,
+      },
+    ],
+  };
+
   return (
     <DashboardContainer>
       <h1>Welcome to Your Dashboard!</h1>
 
-      {/* First Row with Three Columns */}
       <Row>
         <Card>
           <h3>Total Budget</h3>
@@ -182,13 +262,11 @@ const Dashboard: React.FC = () => {
         </Card>
       </Row>
 
-      {/* Middle Row with Chart */}
       <ChartContainer>
         <h3>Spending Chart</h3>
         <Line data={chartData} />
       </ChartContainer>
 
-      {/* Third Row with Recent Transactions Table */}
       <div>
         <h3>Recent Transactions</h3>
         <Table>
@@ -197,14 +275,60 @@ const Dashboard: React.FC = () => {
               <TableHeader>Date</TableHeader>
               <TableHeader>Category</TableHeader>
               <TableHeader>Amount</TableHeader>
+              <TableHeader>Actions</TableHeader>
             </tr>
           </thead>
           <tbody>
             {transactions.map((transaction, index) => (
               <tr key={index}>
-                <TableCell>{transaction.date}</TableCell>
-                <TableCell>{transaction.category}</TableCell>
-                <TableCell>${transaction.amount}</TableCell>
+                <TableCell>
+                  {moment(transaction.date).format("MM/DD/YYYY")}
+                </TableCell>
+                <TableCell>
+                  {editTransactionId === transaction._id ? (
+                    <select
+                      value={editCategory}
+                      onChange={(e) => setEditCategory(e.target.value)}
+                    >
+                      <option value="">Select Category</option>
+                      <option value="food">Food</option>
+                      <option value="transportation">Transportation</option>
+                      <option value="entertainment">Entertainment</option>
+                      <option value="housing">Housing</option>
+                      <option value="shopping">Shopping</option>
+                    </select>
+                  ) : (
+                    transaction.category || "No category"
+                  )}
+                </TableCell>
+
+                <TableCell>
+                  {editTransactionId === transaction._id ? (
+                    <Input
+                      type="number"
+                      value={editAmount}
+                      onChange={(e) => setEditAmount(e.target.value)}
+                    />
+                  ) : (
+                    `$${transaction.amount || "0"}`
+                  )}
+                </TableCell>
+                <TableCell>
+                  {editTransactionId === transaction._id ? (
+                    <SaveIcon icon={faSave} onClick={handleSaveTransaction} />
+                  ) : (
+                    <>
+                      <EditIcon
+                        icon={faPencilAlt}
+                        onClick={() => handleEditTransaction(transaction)}
+                      />
+                      <DeleteIcon
+                        icon={faTrashAlt}
+                        onClick={() => handleDeleteTransaction(transaction._id)}
+                      />
+                    </>
+                  )}
+                </TableCell>
               </tr>
             ))}
           </tbody>

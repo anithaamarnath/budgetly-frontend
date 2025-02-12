@@ -40,6 +40,8 @@ const SignupForm: React.FC = () => {
         email,
         password,
         confirmPassword,
+        token: "",
+        isLoggedIn: false,
       });
       alert("Signup successful!");
       dispatch(clearForm());
