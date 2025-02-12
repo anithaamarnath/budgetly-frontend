@@ -4,7 +4,7 @@ import { FooterWrapper } from "./styles/styled";
 const Footer: React.FC = () => {
   return (
     <FooterWrapper>
-      <p>&copy; 2024 Budgetly. All rights reserved.</p>
+      <p>&copy; 2025 Budgetly. All rights reserved.</p>
     </FooterWrapper>
   );
 };

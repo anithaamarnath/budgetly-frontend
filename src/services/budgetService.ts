@@ -1,24 +1,20 @@
 import axios from "axios";
 
-
-// Set up the base URL for your API
 const apiUrl = import.meta.env.VITE_API_URL;
+
 
 
 export const addTransaction = async (email: string, transaction: { category: string; amount: number; date: string }) => {
   try {
-    const response = await axios.post(`${apiUrl}/api/user/add-transaction/${email}`, transaction);  // Updated route
-    return response.data; // Return the added transaction
+    const response = await axios.post(`${apiUrl}/api/user/add-transaction/${email}`, transaction);  
+    return response.data; 
   } catch (error) {
     console.error("Error adding transaction:", error);
-    throw error; // Propagate the error to be handled by the caller
+    throw error;
   }
 };
 
-
-
 export const fetchUserBudgetData = async (email: string) => {
-
   try {
     const response = await fetch(`${apiUrl}/api/user/${email}`);
 
@@ -36,24 +32,24 @@ export const fetchUserBudgetData = async (email: string) => {
   }
 };
 
-// Edit a transaction based on transaction ID
-export const editTransaction = async (transactionId: string, updatedData: undefined) => {
+
+export const editTransaction = async (transactionId: string, updatedData: object) => {
   try {
-   
     const response = await axios.put(`${apiUrl}/api/user/edit-transaction/${transactionId}`, updatedData);
-   
-    return response.data; // Expected structure of updated transaction
+    return response.data; 
   } catch (error) {
     console.error('Error editing transaction:', error);
     throw error;
   }
 };
 
-// Delete a transaction based on transaction ID
+
 export const deleteTransaction = async (transactionId: string) => {
   try {
+    console.log("transactionId", transactionId);
     const response = await axios.delete(`${apiUrl}/api/user/delete-transaction/${transactionId}`);
-    return response.data; // Expected success message
+    console.log("Response", response.data);
+    return response.data; 
   } catch (error) {
     console.error('Error deleting transaction:', error);
     throw error;
@@ -63,16 +59,13 @@ export const deleteTransaction = async (transactionId: string) => {
 export const updateTotalBudget = async (email: string, totalBudget: number) => {
   try {
    
-    // Pass email as a URL parameter and the totalBudget in the request body
     const response = await axios.put(`${apiUrl}/api/user/update-budget/${email}`, {
-      email, totalBudget, // Send totalBudget in the request body
+      email, totalBudget, 
     }, {
       headers: {
         "Content-Type": "application/json",
       },
     });
-
-  
     return response.data;
   } catch (error) {
     console.error("Error updating budget:", error);

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "./redux/store";
 import { logout } from "./redux/authSlices";
-import { Link } from "react-router-dom"; // Import Link for routing
+import { Link } from "react-router-dom";
 
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,12 +14,10 @@ const Header: React.FC = () => {
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
   console.log("HELO", isLoggedIn);
 
-  // Toggle menu visibility
   const toggleMenu = () => {
     setIsMenuOpen((prevState) => !prevState);
   };
 
-  // Handle logout
   const handleLogout = () => {
     dispatch(logout());
     navigate("/login");
@@ -28,20 +26,18 @@ const Header: React.FC = () => {
   return (
     <HeaderWrapper>
       <Logo>Budgetly</Logo>
-      <HamburgerIcon onClick={toggleMenu}>
-        ☰ {/* Hamburger icon */}
-      </HamburgerIcon>
+      <HamburgerIcon onClick={toggleMenu}>☰</HamburgerIcon>
       <Menu $isOpen={isMenuOpen}>
         <Nav>
           {isLoggedIn ? (
             <>
-              <Link to="/dashboard">Dashboard</Link> {/* Updated to Link */}
-              <Link to="/addNew">Add Expense</Link> {/* Updated to Link */}
+              <Link to="/dashboard">Dashboard</Link>
+              <Link to="/addNew">Add Expense</Link>
               <LogoutButton onLogout={handleLogout} />
             </>
           ) : (
             <>
-              <Link to="/login">Login</Link> {/* Updated to Link */}
+              <Link to="/login">Login</Link>
             </>
           )}
         </Nav>

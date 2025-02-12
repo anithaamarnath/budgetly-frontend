@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-// Container for the entire page
+
 export const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
   color: ${({ theme }) => theme.colors.text};
@@ -9,7 +9,7 @@ export const Container = styled.div`
 `;
 
 export const Header = styled.header.withConfig({
-  shouldForwardProp: (prop) => prop !== "isOpen", // Prevents isOpen from being passed to the DOM
+  shouldForwardProp: (prop) => prop !== "isOpen", 
 })<{ isOpen: boolean }>`
   background-color: ${({ theme, isOpen }) =>
     isOpen ? theme.colors.secondary : theme.colors.primary};
@@ -138,7 +138,7 @@ export const HeroSection = styled.section`
   }
 `;
 
-// Features section with larger text and spacing
+
 export const FeaturesSection = styled.section`
   // padding: 50px 20px;
   background-color: #ffffff;
@@ -164,7 +164,7 @@ export const FeaturesSection = styled.section`
   }
 `;
 
-// Footer styles
+
 export const FooterWrapper = styled.footer`
   background-color: ${({ theme }) => theme.colors.primary};
   color: white;
@@ -293,20 +293,20 @@ export const FormColumn = styled.div`
   }
 `;
 
-// Title style for column headers in the budget section
+
 export const ColumnTitle = styled.h3`
   margin-bottom: 10px;
   color: #333;
 `;
 
-// Styling for the Welcome message
+
 export const WelcomeMessage = styled.h2`
   color: #2c3e50;
   font-size: 24px;
   margin-bottom: 20px;
 `;
 
-// Wrapper for the Login Page
+
 export const LoginWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -335,25 +335,24 @@ export const StyledLogoutButton = styled.button`
   }
 `;
 
-// Define purple color variables for easy maintenance
-export const purple = "white"; // Purple color
-export const darkPurple = "#4b0082"; // Dark purple color
+export const purple = "white"; 
+export const darkPurple = "#4b0082";
 
-// Dashboard Wrapper (Container for the entire dashboard)
+
 export const DashboardWrapper = styled.div`
   background-color: #121212;
   color: white;
   padding: 2rem;
 `;
 
-// Row Layout (to create rows for the dashboard)
+
 export const Row = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 2rem;
 `;
 
-// Column Layout (to divide space between columns)
+
 export const Column = styled.div`
   flex: 1;
   margin: 0 1rem;
@@ -365,14 +364,14 @@ export const Column = styled.div`
   -webkit-backdrop-filter: blur(10px); /* For Safari */
 `;
 
-// Table Wrapper for styling the table
+
 export const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
   margin-top: 20px;
 `;
 
-// Table header and row styling
+
 export const TableHeader = styled.thead`
   background-color: ${darkPurple};
   color: white;
@@ -394,21 +393,20 @@ export const TableCell = styled.td`
   border: 1px solid #555;
 `;
 
-// Header Text Styling
+
 export const DashboardHeader = styled.h2`
   font-size: 2rem;
   margin-bottom: 20px;
   color: ${purple};
 `;
 
-// Subheader for specific sections (e.g., Recent Transactions)
 export const Subheader = styled.h3`
   color: white;
   font-size: 1.5rem;
   margin-bottom: 1rem;
 `;
 
-// Budget Section Title (for example: "Total Budget")
+
 export const BudgetTitle = styled.h3`
   font-size: 1.25rem;
   margin-bottom: 10px;
@@ -416,14 +414,13 @@ export const BudgetTitle = styled.h3`
   margin-bottom: 1rem;
 `;
 
-// Budget Value (for example: "$5000")
+
 export const BudgetValue = styled.p`
   font-size: 1.5rem;
   font-weight: bold;
   color: ${purple};
 `;
 
-// Add a container for the budget value and the edit icon
 export const BudgetValueContainer = styled.div`
   display: flex;
   align-items: center;
@@ -446,7 +443,7 @@ export const EditIcon = styled.div`
   }
 `;
 
-// Chart Container for embedding the chart
+
 export const ChartWrapper = styled.div`
   background: rgba(255, 255, 255, 0.1);
   padding: 2rem;

@@ -17,7 +17,6 @@ const LoginPage: React.FC = () => {
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    console.log("Login form submitted", email, password);
     e.preventDefault();
     setError("");
 

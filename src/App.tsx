@@ -8,7 +8,7 @@ import { Container } from "./styles/styled";
 import SignupForm from "./SignupForm";
 import Dashboard from "./Dashboard";
 import NewEntryForm from "./NewEntryForm";
-import PrivateRoute from "./components/PrivateRoute"; // Import PrivateRoute
+import PrivateRoute from "./components/PrivateRoute";
 
 const App: React.FC = () => {
   return (

@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { Line } from "react-chartjs-2";
-import { faPencilAlt, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPencilAlt,
+  faTrashAlt,
+  faSave,
+} from "@fortawesome/free-solid-svg-icons";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -22,7 +26,7 @@ import {
 import { setBudgetData } from "./redux/budgetSlices";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "./redux/store";
-import moment from "moment"; // To format the date
+import moment from "moment";
 
 ChartJS.register(
   CategoryScale,
@@ -34,7 +38,6 @@ ChartJS.register(
   Legend
 );
 
-// Styled components
 const DashboardContainer = styled.div`
   padding: 20px;
   font-family: Arial, sans-serif;
@@ -92,6 +95,12 @@ const EditIcon = styled(FontAwesomeIcon)`
   margin-left: 10px;
 `;
 
+const SaveIcon = styled(FontAwesomeIcon)`
+  cursor: pointer;
+  color: #28a745; /* You can change the color to green to signify saving */
+  margin-left: 10px;
+`;
+
 const DeleteIcon = styled(FontAwesomeIcon)`
   cursor: pointer;
   color: #dc3545;
@@ -103,18 +112,23 @@ const Dashboard: React.FC = () => {
   const { totalBudget, totalAmountSpent, remainingBudget, transactions } =
     useSelector((state: RootState) => state.budget);
   const email = useSelector((state: RootState) => state.auth?.email);
+  const budgetData = useSelector((state) => state.budget);
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedValue, setEditedValue] = useState<number | string>("");
+  const [editTransactionId, setEditTransactionId] = useState<string | null>(
+    null
+  );
+  const [editCategory, setEditCategory] = useState<string>("");
+  const [editAmount, setEditAmount] = useState<number | string>("");
 
-  // Fetch data when the component mounts
   useEffect(() => {
     const fetchBudgetData = async () => {
       try {
         if (email) {
           const budgetData = await fetchUserBudgetData(email);
-          console.log("BUDGET", budgetData);
-          dispatch(setBudgetData(budgetData)); // Dispatch the fetched data
+
+          dispatch(setBudgetData(budgetData));
         } else {
           console.error("Email is null");
         }
@@ -140,10 +154,8 @@ const Dashboard: React.FC = () => {
         return;
       }
 
-      // API call to update the total budget
       const updatedData = await updateTotalBudget(email, updatedBudget);
 
-      // Update Redux state
       dispatch(setBudgetData(updatedData));
 
       setIsEditing(false);
@@ -152,34 +164,49 @@ const Dashboard: React.FC = () => {
     }
   };
 
-  const handleEditTransaction = async (transactionId: string) => {
-    console.log(`Editing transaction with ID: ${transactionId}`);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const handleEditTransaction = (transaction: any) => {
+    setEditTransactionId(transaction._id);
+    setEditCategory(transaction.category || "");
+    setEditAmount(transaction.amount || "");
+  };
+
+  const handleSaveTransaction = async () => {
+    if (!email || !editTransactionId) return;
+
+    const updatedTransaction = {
+      category: editCategory,
+      amount: Number(editAmount),
+    };
+
     try {
-      const updatedTransaction = await editTransaction(transactionId);
-      console.log("Transaction edited:", updatedTransaction);
-      // Dispatch any state updates needed for the edited transaction
-      dispatch(
-        setBudgetData({
-          ...budgetData,
-          transactions: budgetData.transactions.map((transaction) =>
-            transaction.id === transactionId ? updatedTransaction : transaction
-          ),
-        })
+      const updatedData = await editTransaction(
+        editTransactionId,
+        updatedTransaction
       );
+
+      dispatch(setBudgetData(updatedData));
+
+      setEditTransactionId(null);
+      setEditCategory("");
+      setEditAmount("");
     } catch (error) {
       console.error("Error editing transaction:", error);
     }
   };
 
   const handleDeleteTransaction = async (transactionId: string) => {
-    console.log(`Deleting transaction with ID: ${transactionId}`);
     try {
-      await deleteTransaction(transactionId);
-      // Optionally, re-fetch budget data or remove the deleted transaction from the state
+      const response = await deleteTransaction(transactionId);
+
       dispatch(
         setBudgetData({
           ...budgetData,
-          transactions: transactions.filter((t) => t.id !== transactionId),
+          transactions: budgetData.transactions.filter(
+            (t) => t._id !== transactionId
+          ),
+          totalAmountSpent: response.totalAmountSpent,
+          remainingBudget: response.remainingBudget,
         })
       );
     } catch (error) {
@@ -206,7 +233,6 @@ const Dashboard: React.FC = () => {
     <DashboardContainer>
       <h1>Welcome to Your Dashboard!</h1>
 
-      {/* First Row with Three Columns */}
       <Row>
         <Card>
           <h3>Total Budget</h3>
@@ -237,13 +263,11 @@ const Dashboard: React.FC = () => {
         </Card>
       </Row>
 
-      {/* Middle Row with Chart */}
       <ChartContainer>
         <h3>Spending Chart</h3>
         <Line data={chartData} />
       </ChartContainer>
 
-      {/* Third Row with Recent Transactions Table */}
       <div>
         <h3>Recent Transactions</h3>
         <Table>
@@ -261,17 +285,50 @@ const Dashboard: React.FC = () => {
                 <TableCell>
                   {moment(transaction.date).format("MM/DD/YYYY")}
                 </TableCell>
-                <TableCell>{transaction.category}</TableCell>
-                <TableCell>${transaction.amount}</TableCell>
                 <TableCell>
-                  <EditIcon
-                    icon={faPencilAlt}
-                    onClick={() => handleEditTransaction(transaction.id)}
-                  />
-                  <DeleteIcon
-                    icon={faTrashAlt}
-                    onClick={() => handleDeleteTransaction(transaction.id)}
-                  />
+                  {editTransactionId === transaction._id ? (
+                    <select
+                      value={editCategory}
+                      onChange={(e) => setEditCategory(e.target.value)}
+                    >
+                      <option value="">Select Category</option>
+                      <option value="food">Food</option>
+                      <option value="transportation">Transportation</option>
+                      <option value="entertainment">Entertainment</option>
+                      <option value="housing">Housing</option>
+                      <option value="shopping">Shopping</option>
+                    </select>
+                  ) : (
+                    transaction.category || "No category"
+                  )}
+                </TableCell>
+
+                <TableCell>
+                  {editTransactionId === transaction._id ? (
+                    <Input
+                      type="number"
+                      value={editAmount}
+                      onChange={(e) => setEditAmount(e.target.value)}
+                    />
+                  ) : (
+                    `$${transaction.amount || "0"}`
+                  )}
+                </TableCell>
+                <TableCell>
+                  {editTransactionId === transaction._id ? (
+                    <SaveIcon icon={faSave} onClick={handleSaveTransaction} />
+                  ) : (
+                    <>
+                      <EditIcon
+                        icon={faPencilAlt}
+                        onClick={() => handleEditTransaction(transaction)}
+                      />
+                      <DeleteIcon
+                        icon={faTrashAlt}
+                        onClick={() => handleDeleteTransaction(transaction._id)}
+                      />
+                    </>
+                  )}
                 </TableCell>
               </tr>
             ))}

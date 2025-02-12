@@ -13,7 +13,7 @@ export const theme = {
       primary: '"Roboto", sans-serif',
       secondary: '"Merriweather", serif',
     },
-    spacing: (value: number) => `${value * 8}px`, // 8px spacing scale
+    spacing: (value: number) => `${value * 8}px`,
     breakpoints: {
       mobile: '768px',
       tablet: '1024px',
