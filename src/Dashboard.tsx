@@ -112,7 +112,7 @@ const Dashboard: React.FC = () => {
   const { totalBudget, totalAmountSpent, remainingBudget, transactions } =
     useSelector((state: RootState) => state.budget);
   const email = useSelector((state: RootState) => state.auth?.email);
-  const budgetData = useSelector((state) => state.budget);
+  const budgetData = useSelector((state: RootState) => state.budget);
 
   const [isEditing, setIsEditing] = useState(false);
   const [editedValue, setEditedValue] = useState<number | string>("");
