@@ -98,7 +98,6 @@ const NewEntryForm: React.FC = () => {
     try {
       // Call the addTransaction service to send the data to the backend
       const addedTransaction = await addTransaction(email, transaction);
-      console.log("Added transaction:", addedTransaction);
 
       // Reset the form after successful submission
       setDate("");

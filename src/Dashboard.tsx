@@ -150,7 +150,6 @@ const Dashboard: React.FC = () => {
 
     try {
       if (!email) {
-        console.error("User email is not available");
         return;
       }
 

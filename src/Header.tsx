@@ -12,7 +12,6 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
-  console.log("HELO", isLoggedIn);
 
   const toggleMenu = () => {
     setIsMenuOpen((prevState) => !prevState);

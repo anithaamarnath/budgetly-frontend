@@ -46,9 +46,7 @@ export const editTransaction = async (transactionId: string, updatedData: object
 
 export const deleteTransaction = async (transactionId: string) => {
   try {
-    console.log("transactionId", transactionId);
     const response = await axios.delete(`${apiUrl}/api/user/delete-transaction/${transactionId}`);
-    console.log("Response", response.data);
     return response.data; 
   } catch (error) {
     console.error('Error deleting transaction:', error);
