@@ -29,6 +29,7 @@ export default interface FormState {
 
   // Define types for your slice state
   export interface Transaction {
+    _id:string;
   category: string;
   amount: number;
   description: string;
