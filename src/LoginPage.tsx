@@ -39,7 +39,6 @@ const LoginPage: React.FC = () => {
         isLoggedIn: false,
       });
 
-      alert("Login successful!");
       dispatch(
         login({
           email: userEmail,
