@@ -35,7 +35,7 @@ const budgetSlice = createSlice({
       state.remainingBudget = state.totalBudget - state.totalAmountSpent;
     },
     editTransaction(state, action: PayloadAction<Transaction[]>) {
-      state.transactions = action.payload; // Replace the entire transactions array with the updated one
+      state.transactions = action.payload; 
       state.totalAmountSpent = state.transactions.reduce((sum, t) => sum + t.amount, 0);
       state.remainingBudget = state.totalBudget - state.totalAmountSpent;
     },

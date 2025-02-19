@@ -1,5 +1,5 @@
 import styled from "styled-components";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const Container = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
@@ -9,7 +9,7 @@ export const Container = styled.div`
 `;
 
 export const Header = styled.header.withConfig({
-  shouldForwardProp: (prop) => prop !== "isOpen", 
+  shouldForwardProp: (prop) => prop !== "isOpen",
 })<{ isOpen: boolean }>`
   background-color: ${({ theme, isOpen }) =>
     isOpen ? theme.colors.secondary : theme.colors.primary};
@@ -138,7 +138,6 @@ export const HeroSection = styled.section`
   }
 `;
 
-
 export const FeaturesSection = styled.section`
   // padding: 50px 20px;
   background-color: #ffffff;
@@ -163,7 +162,6 @@ export const FeaturesSection = styled.section`
     }
   }
 `;
-
 
 export const FooterWrapper = styled.footer`
   background-color: ${({ theme }) => theme.colors.primary};
@@ -293,19 +291,16 @@ export const FormColumn = styled.div`
   }
 `;
 
-
 export const ColumnTitle = styled.h3`
   margin-bottom: 10px;
   color: #333;
 `;
-
 
 export const WelcomeMessage = styled.h2`
   color: #2c3e50;
   font-size: 24px;
   margin-bottom: 20px;
 `;
-
 
 export const LoginWrapper = styled.div`
   display: flex;
@@ -335,9 +330,8 @@ export const StyledLogoutButton = styled.button`
   }
 `;
 
-export const purple = "white"; 
+export const purple = "white";
 export const darkPurple = "#4b0082";
-
 
 export const DashboardWrapper = styled.div`
   background-color: #121212;
@@ -345,13 +339,11 @@ export const DashboardWrapper = styled.div`
   padding: 2rem;
 `;
 
-
 export const Row = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 2rem;
 `;
-
 
 export const Column = styled.div`
   flex: 1;
@@ -364,19 +356,6 @@ export const Column = styled.div`
   -webkit-backdrop-filter: blur(10px); /* For Safari */
 `;
 
-
-export const Table = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 20px;
-`;
-
-
-export const TableHeader = styled.thead`
-  background-color: ${darkPurple};
-  color: white;
-`;
-
 export const TableBody = styled.tbody`
   background-color: #444;
 `;
@@ -386,13 +365,6 @@ export const TableRow = styled.tr`
     background-color: #555;
   }
 `;
-
-export const TableCell = styled.td`
-  padding: 10px;
-  text-align: left;
-  border: 1px solid #555;
-`;
-
 
 export const DashboardHeader = styled.h2`
   font-size: 2rem;
@@ -406,14 +378,12 @@ export const Subheader = styled.h3`
   margin-bottom: 1rem;
 `;
 
-
 export const BudgetTitle = styled.h3`
   font-size: 1.25rem;
   margin-bottom: 10px;
   color: ${purple};
   margin-bottom: 1rem;
 `;
-
 
 export const BudgetValue = styled.p`
   font-size: 1.5rem;
@@ -429,21 +399,6 @@ export const BudgetValueContainer = styled.div`
   font-size: 1.2rem;
 `;
 
-export const EditIcon = styled.div`
-  cursor: pointer;
-  padding: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.3s;
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.4);
-  }
-`;
-
-
 export const ChartWrapper = styled.div`
   background: rgba(255, 255, 255, 0.1);
   padding: 2rem;
@@ -451,4 +406,79 @@ export const ChartWrapper = styled.div`
   margin-top: 2rem;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+`;
+
+// Dashboard styles
+export const DashboardContainer = styled.div`
+  padding: 20px;
+  font-family: Arial, sans-serif;
+`;
+
+export const Card = styled.div`
+  flex: 1;
+  margin: 0 10px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+`;
+
+export const ChartContainer = styled.div`
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+`;
+
+export const Table = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+`;
+
+export const TableHeader = styled.th`
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+  background-color: #f2f2f2;
+`;
+
+export const TableCell = styled.td`
+  border: 1px solid #ccc;
+  padding: 8px;
+`;
+
+export const Input = styled.input`
+  padding: 5px;
+  font-size: 1em;
+`;
+
+export const EditIcon = styled(FontAwesomeIcon)`
+  cursor: pointer;
+  color: #007bff;
+  margin-left: 10px;
+`;
+
+export const SaveIcon = styled(FontAwesomeIcon)`
+  cursor: pointer;
+  color: #28a745; /* You can change the color to green to signify saving */
+  margin-left: 10px;
+`;
+
+export const DeleteIcon = styled(FontAwesomeIcon)`
+  cursor: pointer;
+  color: #dc3545;
+  margin-left: 10px;
+`;
+
+export const SuccessMessage = styled.p`
+  background-color: #d4edda;
+  color: #155724;
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  border: 1px solid #c3e6cb;
+  margin-bottom: 15px;
+  font-weight: bold;
 `;
