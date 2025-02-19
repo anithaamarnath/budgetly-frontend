@@ -7,12 +7,7 @@ export default interface FormState {
     loading?: boolean;
   }
 
-  export default interface LoginState {
-    token: string;
-    email: string;
-    name: string;
-    isLoggedIn: boolean;
-  }
+
   
 
   export interface LogoutButtonProps {

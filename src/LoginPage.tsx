@@ -30,14 +30,7 @@ const LoginPage: React.FC = () => {
         token,
         email: userEmail,
         name,
-      } = await loginUser({
-        email,
-        password,
-        name: "",
-        confirmPassword: "",
-        token: "",
-        isLoggedIn: false,
-      });
+      } = await loginUser({ email, password });
 
       dispatch(
         login({
@@ -50,7 +43,6 @@ const LoginPage: React.FC = () => {
 
       localStorage.setItem("token", JSON.stringify(token));
       navigate("/dashboard");
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       if (err.response && err.response.data) {
         setError(err.response.data.message || "Login failed. Try again.");
