@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -8,15 +8,17 @@ import {
   clearForm,
 } from "./redux/formSlice";
 import { RootState, AppDispatch } from "./redux/store";
-import { SignupWrapper, FormColumn } from "./styles/styled";
+import { SignupWrapper, FormColumn, SuccessMessage } from "./styles/styled";
 import { registerUser } from "./services/authService";
 import FormState from "./types";
+import { login } from "./redux/authSlices";
 
 const SignupForm: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const formData = useSelector((state: RootState) => state.form);
   const { name, email, password, confirmPassword, error, loading } = formData;
+  const [successMessage, setSuccessMessage] = useState("");
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = e.target;
@@ -35,7 +37,7 @@ const SignupForm: React.FC = () => {
 
     dispatch(setLoading(true));
     try {
-      await registerUser({
+      const newUser = await registerUser({
         name,
         email,
         password,
@@ -43,7 +45,16 @@ const SignupForm: React.FC = () => {
         token: "",
         isLoggedIn: false,
       });
-      alert("Signup successful!");
+      console.log("newUser", newUser);
+      dispatch(
+        login({
+          email: newUser.email,
+          token: "",
+          isLoggedIn: true,
+          name: newUser.name,
+        })
+      );
+      setSuccessMessage("Signup successful! Redirecting...");
       dispatch(clearForm());
       navigate("/dashboard");
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -64,6 +75,7 @@ const SignupForm: React.FC = () => {
     <SignupWrapper>
       <FormColumn>
         <h2>Create Your Account</h2>
+        {successMessage && <SuccessMessage>{successMessage}</SuccessMessage>}
         <form onSubmit={handleSubmit}>
           {" "}
           <div>

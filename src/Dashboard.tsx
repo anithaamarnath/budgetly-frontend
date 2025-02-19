@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styled from "styled-components";
+import {
+  DashboardContainer,
+  Row,
+  Card,
+  Input,
+  EditIcon,
+  ChartContainer,
+  Table,
+  TableHeader,
+  TableCell,
+  SaveIcon,
+  DeleteIcon,
+} from "./styles/styled";
 import { Line } from "react-chartjs-2";
 import {
   faPencilAlt,
@@ -37,75 +48,6 @@ ChartJS.register(
   Tooltip,
   Legend
 );
-
-const DashboardContainer = styled.div`
-  padding: 20px;
-  font-family: Arial, sans-serif;
-`;
-
-const Row = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-`;
-
-const Card = styled.div`
-  flex: 1;
-  margin: 0 10px;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-`;
-
-const ChartContainer = styled.div`
-  margin: 20px 0;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-`;
-
-const Table = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-`;
-
-const TableHeader = styled.th`
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: left;
-  background-color: #f2f2f2;
-`;
-
-const TableCell = styled.td`
-  border: 1px solid #ccc;
-  padding: 8px;
-`;
-
-const Input = styled.input`
-  padding: 5px;
-  font-size: 1em;
-`;
-
-const EditIcon = styled(FontAwesomeIcon)`
-  cursor: pointer;
-  color: #007bff;
-  margin-left: 10px;
-`;
-
-const SaveIcon = styled(FontAwesomeIcon)`
-  cursor: pointer;
-  color: #28a745; /* You can change the color to green to signify saving */
-  margin-left: 10px;
-`;
-
-const DeleteIcon = styled(FontAwesomeIcon)`
-  cursor: pointer;
-  color: #dc3545;
-  margin-left: 10px;
-`;
 
 const Dashboard: React.FC = () => {
   const dispatch = useDispatch();
