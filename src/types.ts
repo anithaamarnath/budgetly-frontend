@@ -2,9 +2,11 @@ export default interface FormState {
     name: string;
     email: string;
     password: string;
-    confirmPassword: string;
+    confirmPassword?: string;
     error?: string | null;
     loading?: boolean;
+    token?: string | null ;
+    isLoggedIn?: boolean;
   }
 
 export interface LogoutButtonProps {
@@ -12,10 +14,11 @@ export interface LogoutButtonProps {
 }
 
 export interface AuthState {
-    token: string | null;
+    token?: string | null;
     email: string | null;
-    name: string | null;
-    isLoggedIn: boolean;
+    name?: string | null;
+    password?: string | null;
+    isLoggedIn?: boolean;
 }
 
 

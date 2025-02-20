@@ -35,20 +35,17 @@ const LoginPage: React.FC = () => {
       dispatch(
         login({
           email: userEmail,
-          token: token,
+          token: token ?? "",
           isLoggedIn: true,
-          name: name,
+          name: name ?? "",
         })
       );
 
       localStorage.setItem("token", JSON.stringify(token));
       navigate("/dashboard");
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      if (err.response && err.response.data) {
-        setError(err.response.data.message || "Login failed. Try again.");
-      } else {
-        setError("An unexpected error occurred. Please try again.");
-      }
+      setError(err.response?.data?.message || "Login failed. Try again.");
     }
   };
 

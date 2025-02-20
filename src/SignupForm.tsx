@@ -45,13 +45,13 @@ const SignupForm: React.FC = () => {
         token: "",
         isLoggedIn: false,
       });
-      console.log("newUser", newUser);
+      console.log("newUser", newUser.email);
       dispatch(
         login({
-          email: newUser.email,
+          email: newUser?.email,
           token: "",
           isLoggedIn: true,
-          name: newUser.name,
+          name: newUser?.name,
         })
       );
       setSuccessMessage("Signup successful! Redirecting...");
