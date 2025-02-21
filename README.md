@@ -18,6 +18,7 @@ Budgetly is a personal finance tracker that helps users monitor their expenses w
   - React (with TypeScript)
   - Axios (for API requests)
   - Styled-Components (for styling)
+  
 2.Backend
   - Node.js (server-side runtime)
   - Express.js (backend framework)
