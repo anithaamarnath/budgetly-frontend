@@ -5,13 +5,13 @@ Overview
 Budgetly is a personal finance tracker that helps users monitor their expenses with a visual chart that compares the total budget, spent amount, and remaining balance. Users can add, edit, and delete transactions easily. Future features will include transaction filtering and pagination.
 
 Features
-  📊 Chart Representation: Compare the total budget, spent amount, and remaining balance.
-  ➕ Add Transactions: Record income and expenses.
-  ✏️ Edit Transactions: Update transaction details.
-  ❌ Delete Transactions: Remove unwanted transactions.
-  🔍 Upcoming Features:
-    Filter transactions.
-    Implement pagination for transaction history.
+📊 Chart Representation: Compare the total budget, spent amount, and remaining balance.
+➕ Add Transactions: Record income and expenses.
+✏️ Edit Transactions: Update transaction details.
+❌ Delete Transactions: Remove unwanted transactions.
+🔍 Upcoming Features:
+Filter transactions.
+Implement pagination for transaction history.
 
 Tech Stack
 Frontend
