@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./Header";
 import LandingPage from "./LandingPage";
-import Footer from "./Footer";
+import Footer from "./Footer/Footer";
 import LoginPage from "./LoginPage";
 import { Container } from "./styles/styled";
 import SignupForm from "./SignupForm";
