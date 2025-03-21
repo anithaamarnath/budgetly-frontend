@@ -88,7 +88,7 @@ export const Menu = styled.div<{ $isOpen: boolean }>`
 
 export const MainContent = styled.div`
   flex-grow: 1;
-  overflow-y: auto; /* Enable scrolling only inside the content */
+  overflow-y: auto;
   padding: 20px;
 `;
 
@@ -97,7 +97,7 @@ export const MainContent = styled.div`
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh; /* Full viewport height */
+  height: 100vh;
   overflow: hidden;
 `;
 export const RightContainer = styled.div<{ expanded: boolean }>`
@@ -106,7 +106,7 @@ export const RightContainer = styled.div<{ expanded: boolean }>`
   transition: margin-left 0.3s ease-in-out;
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 60px); /* Subtract header height */
+  height: calc(100vh - 60px);
   overflow: hidden;
 `;
 
