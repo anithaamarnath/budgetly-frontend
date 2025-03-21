@@ -1,11 +1,14 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logout } from "../redux/authSlices";
 import {
   Sidebar,
   SidebarItem,
   SidebarIcon,
   SidebarText,
 } from "../styles/styled";
-import { FaBars, FaHome, FaChartPie, FaCog } from "react-icons/fa";
+import { FaBars, FaHome, FaPlus, FaSignOutAlt } from "react-icons/fa";
 
 interface SidebarProps {
   expanded: boolean;
@@ -16,31 +19,43 @@ const SidebarComponent: React.FC<SidebarProps> = ({
   expanded,
   setExpanded,
 }) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    setExpanded(false);
+    navigate("/");
+  };
+
   return (
     <Sidebar expanded={expanded}>
       <SidebarItem onClick={() => setExpanded(!expanded)}>
         <SidebarIcon expanded={expanded}>
           <FaBars />
         </SidebarIcon>
-        <SidebarText expanded={expanded}>Toggle</SidebarText>
+        <SidebarText expanded={expanded}>Menu</SidebarText>
       </SidebarItem>
-      <SidebarItem>
+
+      <SidebarItem onClick={() => navigate("/dashboard")}>
         <SidebarIcon expanded={expanded}>
           <FaHome />
         </SidebarIcon>
-        <SidebarText expanded={expanded}>Home</SidebarText>
+        <SidebarText expanded={expanded}>Dashboard</SidebarText>
       </SidebarItem>
-      <SidebarItem>
+
+      <SidebarItem onClick={() => navigate("/addNew")}>
         <SidebarIcon expanded={expanded}>
-          <FaChartPie />
+          <FaPlus />
         </SidebarIcon>
-        <SidebarText expanded={expanded}>Analytics</SidebarText>
+        <SidebarText expanded={expanded}>Add Expense</SidebarText>
       </SidebarItem>
-      <SidebarItem>
+
+      <SidebarItem onClick={handleLogout}>
         <SidebarIcon expanded={expanded}>
-          <FaCog />
+          <FaSignOutAlt />
         </SidebarIcon>
-        <SidebarText expanded={expanded}>Settings</SidebarText>
+        <SidebarText expanded={expanded}>Logout</SidebarText>
       </SidebarItem>
     </Sidebar>
   );

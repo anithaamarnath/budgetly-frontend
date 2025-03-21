@@ -22,6 +22,23 @@ export const Logo = styled.div`
   color: white;
 `;
 
+// Profile
+export const ProfileIconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 10px;
+  color: white;
+
+  span {
+    font-size: 16px;
+  }
+
+  &:hover {
+    color: #f0f0f0;
+  }
+`;
+
 export const Nav = styled.nav`
   display: flex;
   justify-content: space-between;
@@ -69,11 +86,9 @@ export const Menu = styled.div<{ $isOpen: boolean }>`
 
 // Main Container styles
 
-export const MainContent = styled.main`
+export const MainContent = styled.div`
   flex-grow: 1;
-  margin-top: 60px;
-  margin-bottom: 50px;
-  overflow-y: auto;
+  overflow-y: auto; /* Enable scrolling only inside the content */
   padding: 20px;
 `;
 
@@ -82,17 +97,17 @@ export const MainContent = styled.main`
 export const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100vh; /* Full viewport height */
   overflow: hidden;
 `;
-
 export const RightContainer = styled.div<{ expanded: boolean }>`
+  flex-grow: 1;
   margin-left: ${(props) => (props.expanded ? "250px" : "80px")};
   transition: margin-left 0.3s ease-in-out;
-  padding: 20px;
-  overflow-y: scroll;
-  height: 100vh;
-  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 60px); /* Subtract header height */
+  overflow: hidden;
 `;
 
 // Login/Signup styles
@@ -134,6 +149,13 @@ export const LoginWrapper = styled.div`
   height: 100vh;
   background-color: #f4f4f9;
   padding: 20px;
+`;
+
+// Logout
+export const Layout = styled.div`
+  display: flex;
+  flex: 1;
+  overflow: hidden;
 `;
 
 // Dashboard styles
@@ -507,7 +529,9 @@ export const HeaderWrapper = styled.header`
   justify-content: space-between;
   align-items: center;
   padding: ${({ theme }) => theme.spacing(3)};
+
   background-color: ${({ theme }) => theme.colors.primary};
+  border-bottom: 1px solid #ddd;
 `;
 
 export const Title = styled.h1`
