@@ -117,7 +117,7 @@ const NewEntryForm: React.FC = () => {
 
       setSuccessMessage("Transaction added successfully!");
 
-      setTimeout(() => setSuccessMessage(null), 3000); // Hide after 3 seconds
+      setTimeout(() => setSuccessMessage(null), 3000);
     } catch (error) {
       console.error("Error adding transaction:", error);
       alert("There was an error adding the transaction.");

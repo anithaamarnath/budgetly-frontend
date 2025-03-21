@@ -20,7 +20,7 @@ const formSlice = createSlice({
     setFormData(state, action: PayloadAction<{ id: keyof FormState; value: string }>) {
       const { id, value } = action.payload;
       if (id in state) {
-        (state[id] as string) = value; // Update the state with the input field's value
+        (state[id] as string) = value;
       }
     },
     setLoading(state, action: PayloadAction<boolean>) {
@@ -32,8 +32,6 @@ const formSlice = createSlice({
     clearForm() {
       return { ...initialState }; 
     }
-
-
   },
 });
 
