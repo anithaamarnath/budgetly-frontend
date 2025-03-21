@@ -12,7 +12,7 @@ import {
   SaveIcon,
   DeleteIcon,
 } from "./styles/styled";
-import { Line } from "react-chartjs-2";
+import { Pie } from "react-chartjs-2";
 import {
   faPencilAlt,
   faTrashAlt,
@@ -35,17 +35,19 @@ import {
   LinearScale,
   PointElement,
   LineElement,
+  ArcElement,
   Title,
   Tooltip,
   Legend,
 } from "chart.js";
 
-// Registering the necessary components
+// Registering the necessary components for chart.js
 ChartJS.register(
   CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
+  ArcElement,
   Title,
   Tooltip,
   Legend
@@ -123,28 +125,30 @@ const Dashboard: React.FC = () => {
     dispatch(setBudgetData(updatedData));
   };
 
-  const chartData = {
-    labels: transactions.map((transaction) =>
-      moment(transaction.date).format("MM/DD/YYYY")
-    ),
+  const spendingByCategory = transactions.reduce((acc, transaction) => {
+    acc[transaction.category] =
+      (acc[transaction.category] || 0) + transaction.amount;
+    return acc;
+  }, {} as Record<string, number>);
+
+  const pieData = {
+    labels: Object.keys(spendingByCategory),
     datasets: [
       {
-        label: "Spending Over Time",
-        data: transactions.map((transaction) => transaction.amount),
-        borderColor: "#42a5f5",
-        backgroundColor: "rgba(66, 165, 245, 0.2)",
-        fill: true,
+        data: Object.values(spendingByCategory),
+        backgroundColor: [
+          "#FF6384",
+          "#36A2EB",
+          "#FFCE56",
+          "#4BC0C0",
+          "#9966FF",
+        ],
       },
     ],
   };
 
   return (
     <DashboardContainer>
-      {/* TODO Hewade */}
-      {/* <Header> */}
-      {/* <h1>Welcome to Your Dashboard!</h1> */}
-      {/* </Header> */}
-
       <div style={{ display: "flex" }}>
         <SidebarComponent expanded={expanded} setExpanded={setExpanded} />
 
@@ -179,83 +183,94 @@ const Dashboard: React.FC = () => {
             </Card>
           </Row>
 
-          <ChartContainer>
-            <h3>Spending Chart</h3>
-            <Line data={chartData} />
-          </ChartContainer>
+          <Row style={{ display: "flex", justifyContent: "space-between" }}>
+            <div style={{ flex: 0.4, paddingRight: "20px" }}>
+              <ChartContainer>
+                <h3>Spending by Category</h3>
+                <Pie data={pieData} />
+              </ChartContainer>
+            </div>
+            <div style={{ flex: 0.6, paddingLeft: "20px" }}>
+              <div>
+                <h3>Recent Transactions</h3>
+                <Table>
+                  <thead>
+                    <tr>
+                      <TableHeader>Date</TableHeader>
+                      <TableHeader>Category</TableHeader>
+                      <TableHeader>Amount</TableHeader>
+                      <TableHeader>Actions</TableHeader>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {transactions.map((transaction, index) => (
+                      <tr key={index}>
+                        <TableCell>
+                          {moment(transaction.date).format("MM/DD/YYYY")}
+                        </TableCell>
+                        <TableCell>
+                          {editTransactionId === transaction._id ? (
+                            <select
+                              value={editCategory}
+                              onChange={(e) => setEditCategory(e.target.value)}
+                            >
+                              <option value="">Select Category</option>
+                              <option value="food">Food</option>
+                              <option value="transportation">
+                                Transportation
+                              </option>
+                              <option value="entertainment">
+                                Entertainment
+                              </option>
+                              <option value="housing">Housing</option>
+                              <option value="shopping">Shopping</option>
+                            </select>
+                          ) : (
+                            transaction.category || "No category"
+                          )}
+                        </TableCell>
 
-          <div>
-            <h3>Recent Transactions</h3>
-            <Table>
-              <thead>
-                <tr>
-                  <TableHeader>Date</TableHeader>
-                  <TableHeader>Category</TableHeader>
-                  <TableHeader>Amount</TableHeader>
-                  <TableHeader>Actions</TableHeader>
-                </tr>
-              </thead>
-              <tbody>
-                {transactions.map((transaction, index) => (
-                  <tr key={index}>
-                    <TableCell>
-                      {moment(transaction.date).format("MM/DD/YYYY")}
-                    </TableCell>
-                    <TableCell>
-                      {editTransactionId === transaction._id ? (
-                        <select
-                          value={editCategory}
-                          onChange={(e) => setEditCategory(e.target.value)}
-                        >
-                          <option value="">Select Category</option>
-                          <option value="food">Food</option>
-                          <option value="transportation">Transportation</option>
-                          <option value="entertainment">Entertainment</option>
-                          <option value="housing">Housing</option>
-                          <option value="shopping">Shopping</option>
-                        </select>
-                      ) : (
-                        transaction.category || "No category"
-                      )}
-                    </TableCell>
-
-                    <TableCell>
-                      {editTransactionId === transaction._id ? (
-                        <Input
-                          type="number"
-                          value={editAmount}
-                          onChange={(e) => setEditAmount(e.target.value)}
-                        />
-                      ) : (
-                        `$${transaction.amount || "0"}`
-                      )}
-                    </TableCell>
-                    <TableCell>
-                      {editTransactionId === transaction._id ? (
-                        <SaveIcon
-                          icon={faSave}
-                          onClick={handleSaveTransaction}
-                        />
-                      ) : (
-                        <>
-                          <EditIcon
-                            icon={faPencilAlt}
-                            onClick={() => handleEditTransaction(transaction)}
-                          />
-                          <DeleteIcon
-                            icon={faTrashAlt}
-                            onClick={() =>
-                              handleDeleteTransaction(transaction._id)
-                            }
-                          />
-                        </>
-                      )}
-                    </TableCell>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          </div>
+                        <TableCell>
+                          {editTransactionId === transaction._id ? (
+                            <Input
+                              type="number"
+                              value={editAmount}
+                              onChange={(e) => setEditAmount(e.target.value)}
+                            />
+                          ) : (
+                            `$${transaction.amount || "0"}`
+                          )}
+                        </TableCell>
+                        <TableCell>
+                          {editTransactionId === transaction._id ? (
+                            <SaveIcon
+                              icon={faSave}
+                              onClick={handleSaveTransaction}
+                            />
+                          ) : (
+                            <>
+                              <EditIcon
+                                icon={faPencilAlt}
+                                onClick={() =>
+                                  handleEditTransaction(transaction)
+                                }
+                              />
+                              <DeleteIcon
+                                icon={faTrashAlt}
+                                onClick={() =>
+                                  handleDeleteTransaction(transaction._id)
+                                }
+                              />
+                            </>
+                          )}
+                        </TableCell>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              </div>
+            </div>
+          </Row>
         </div>
       </div>
     </DashboardContainer>

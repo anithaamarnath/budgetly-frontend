@@ -21,7 +21,6 @@ const App: React.FC = () => {
     <Router>
       <Container>
         <Header />
-        {/* Show Sidebar & MainContent only if logged in */}
         {isLoggedIn ? (
           <>
             <SidebarComponent
@@ -53,7 +52,6 @@ const App: React.FC = () => {
             </RightContainer>
           </>
         ) : (
-          // Show only Landing Page when logged out
           <MainContent>
             <Routes>
               <Route path="/" element={<LandingPage />} />
