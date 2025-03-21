@@ -1,46 +1,40 @@
-import React, { useState } from "react";
-import { HeaderWrapper, Logo, Nav, HamburgerIcon, Menu } from "./styles/styled";
-import LogoutButton from "./components/LogoutButton";
+import React from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "./redux/store";
-import { logout } from "./redux/authSlices";
-import { Link } from "react-router-dom";
+import { HeaderWrapper, Logo, ProfileIconWrapper } from "./styles/styled";
+import { FaUserCircle } from "react-icons/fa";
+import { RootState } from "./redux/store";
 
 const Header: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
-  const isLoggedIn = useSelector((state: RootState) => state?.auth.isLoggedIn);
+  const user = useSelector((state: RootState) => state.auth?.name);
 
-  const toggleMenu = () => {
-    setIsMenuOpen((prevState) => !prevState);
+  const handleLoginClick = () => {
+    navigate("/login");
   };
 
-  const handleLogout = () => {
-    dispatch(logout());
-    navigate("/login");
+  const handleProfileClick = () => {
+    navigate("/profile");
   };
 
   return (
     <HeaderWrapper>
       <Logo>Budgetly</Logo>
-      <HamburgerIcon onClick={toggleMenu}>☰</HamburgerIcon>
-      <Menu $isOpen={isMenuOpen}>
-        <Nav>
-          {isLoggedIn ? (
-            <>
-              <Link to="/dashboard">Dashboard</Link>
-              <Link to="/addNew">Add Expense</Link>
-              <LogoutButton onLogout={handleLogout} />
-            </>
-          ) : (
-            <>
-              <Link to="/login">Login</Link>
-            </>
-          )}
-        </Nav>
-      </Menu>
+      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+        {!user ? (
+          <span
+            style={{ cursor: "pointer", color: "white" }}
+            onClick={handleLoginClick}
+          >
+            Login
+          </span>
+        ) : (
+          <ProfileIconWrapper onClick={handleProfileClick}>
+            <FaUserCircle size={30} />
+            <span>{user}</span>
+          </ProfileIconWrapper>
+        )}
+      </div>
     </HeaderWrapper>
   );
 };
