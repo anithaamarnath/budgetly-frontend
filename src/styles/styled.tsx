@@ -1,44 +1,20 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export const Container = styled.div`
-  background-color: ${({ theme }) => theme.colors.background};
-  color: ${({ theme }) => theme.colors.text};
-  border-radius: ${({ theme }) => theme.borderRadius};
-  box-shadow: ${({ theme }) => theme.shadow};
-`;
+export const purple = "white";
+export const darkPurple = "#4b0082";
 
-export const Header = styled.header.withConfig({
-  shouldForwardProp: (prop) => prop !== "isOpen",
-})<{ isOpen: boolean }>`
-  background-color: ${({ theme, isOpen }) =>
-    isOpen ? theme.colors.secondary : theme.colors.primary};
-  padding: ${({ theme }) => theme.spacing(3)};
+// Header styles
 
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    padding: ${({ theme }) => theme.spacing(2)};
-  }
-`;
-
-export const Title = styled.h1`
-  font-family: ${({ theme }) => theme.fonts.secondary};
-  font-size: 2rem;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    font-size: 1.5rem;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    font-size: 1.25rem;
-  }
-`;
-
-export const HeaderWrapper = styled.header`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: ${({ theme }) => theme.spacing(3)};
+export const Header = styled.header`
+  position: fixed;
+  top: 0;
+  width: 100%;
   background-color: ${({ theme }) => theme.colors.primary};
+  color: white;
+  padding: 15px;
+  z-index: 10;
+  text-align: center;
 `;
 
 export const Logo = styled.div`
@@ -59,7 +35,7 @@ export const HamburgerIcon = styled.div`
   cursor: pointer;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    display: block; /* Show the hamburger icon on mobile/tablet */
+    display: block;
   }
 `;
 
@@ -91,6 +67,181 @@ export const Menu = styled.div<{ $isOpen: boolean }>`
   }
 `;
 
+// Main Container styles
+
+export const MainContent = styled.main`
+  flex-grow: 1;
+  margin-top: 60px;
+  margin-bottom: 50px;
+  overflow-y: auto;
+  padding: 20px;
+`;
+
+// Contianer styles
+
+export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+`;
+
+export const RightContainer = styled.div<{ expanded: boolean }>`
+  margin-left: ${(props) => (props.expanded ? "250px" : "80px")};
+  transition: margin-left 0.3s ease-in-out;
+  padding: 20px;
+  overflow-y: scroll;
+  height: 100vh;
+  z-index: 1;
+`;
+
+// Login/Signup styles
+export const SignupWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: ${({ theme }) => theme.colors.background};
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    padding: 20px;
+  }
+`;
+
+export const LoginSignUpWrapper = styled.section`
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  flex-direction: row;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    flex-direction: column;
+    height: auto;
+    padding: 20px 10px;
+  }
+
+  @media (max-width: 425px) {
+    flex-direction: column;
+    height: auto;
+    padding: 20px 10px;
+  }
+`;
+
+export const LoginWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f9;
+  padding: 20px;
+`;
+
+// Dashboard styles
+
+export const DashboardWrapper = styled.div`
+  background-color: #121212;
+  color: white;
+  padding: 2rem;
+`;
+
+export const Row = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+`;
+
+export const Column = styled.div`
+  flex: 1;
+  margin: 0 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+`;
+
+export const DashboardHeader = styled.h2`
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: ${purple};
+`;
+
+// Sidebar styles
+
+export const Sidebar = styled.div<{ expanded: boolean }>`
+  width: ${(props) => (props.expanded ? "250px" : "80px")};
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  padding-top: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.3s ease-in-out, margin-top 0.3s ease;
+  overflow-y: auto;
+  margin-top: ${(props) => (props.expanded ? "90px" : "90px")};
+  z-index: 2;
+  transition: background-color 0.3s ease;
+`;
+
+export const SidebarFooter = styled.div`
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  padding: 10px 20px;
+  text-align: center;
+  background-color: ${({ theme }) => theme.colors.secondary};
+`;
+
+export const SidebarItem = styled.div`
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  width: 100%;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.secondary};
+  }
+
+  svg {
+    margin-right: 10px;
+    transition: margin-right 0.3s ease;
+  }
+`;
+
+export const SidebarIcon = styled.div<{ expanded: boolean }>`
+  margin-right: ${(props) => (props.expanded ? "10px" : "0")};
+  transition: margin-right 0.3s ease;
+`;
+
+export const SidebarText = styled.span<{ expanded: boolean }>`
+  display: ${(props) => (props.expanded ? "inline" : "none")};
+  flex-grow: 1;
+  transition: display 0.3s ease-in-out;
+`;
+
+export const ToggleButton = styled.button`
+  position: absolute;
+  top: 20px;
+  right: -25px;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: white;
+  border: none;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+`;
+
 // LandingPage styles
 export const LandingPageWrapper = styled.main`
   flex: 1;
@@ -100,13 +251,13 @@ export const LandingPageWrapper = styled.main`
 
 export const HeroSection = styled.section`
   text-align: center;
-  padding: 100px 20px; /* Increased vertical padding */
+  padding: 100px 20px;
   background-color: #27ae60;
   color: white;
-  min-height: 60vh; /* Make hero section take up more height */
+  min-height: 60vh;
 
   h1 {
-    font-size: 3rem; /* Larger text */
+    font-size: 3rem;
     font-family: "Merriweather", serif;
   }
 
@@ -118,7 +269,7 @@ export const HeroSection = styled.section`
   .buttons-container {
     display: flex;
     justify-content: center;
-    gap: 20px; /* Space between the buttons */
+    gap: 20px;
     margin-top: 30px;
   }
 
@@ -130,7 +281,7 @@ export const HeroSection = styled.section`
     font-size: 1.1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    border-radius: 30px; /* Makes the button rounded */
+    border-radius: 30px;
   }
 
   button:hover {
@@ -139,10 +290,9 @@ export const HeroSection = styled.section`
 `;
 
 export const FeaturesSection = styled.section`
-  // padding: 50px 20px;
   background-color: #ffffff;
   text-align: center;
-  min-height: 40vh; /* More height for this section */
+  min-height: 40vh;
 
   h2 {
     font-family: "Merriweather", serif;
@@ -163,36 +313,8 @@ export const FeaturesSection = styled.section`
   }
 `;
 
-export const FooterWrapper = styled.footer`
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: white;
-  text-align: center;
-  padding: 20px;
-  margin-top: auto; /* Push the footer to the bottom of the screen */
-  width: 100%;
-`;
-
-export const LoginSignUpWrapper = styled.section`
-  display: flex;
-  align-items: center;
-  height: 100vh; /* Full viewport height */
-  flex-direction: row; /* Default to row for desktop */
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    flex-direction: column; /* Stack vertically on tablet */
-    height: auto; /* Allow height to be flexible on smaller screens */
-    padding: 20px 10px; /* Adjust padding for smaller screens */
-  }
-
-  @media (max-width: 425px) {
-    flex-direction: column; /* Stack vertically on mobile */
-    height: auto; /* Let the content decide height */
-    padding: 20px 10px; /* Add some padding for mobile screens */
-  }
-`;
-
 export const ImageColumn = styled.div`
-  width: 50%; /* Default width for desktop */
+  width: 50%;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -202,29 +324,16 @@ export const ImageColumn = styled.div`
   background-position: center;
   background-repeat: no-repeat;
 
-  /* Replace the image with a solid color or pattern on smaller screens */
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    width: 100%; /* Take full width on smaller devices */
-    height: 200px; /* Limit height of the background image on tablet */
-    background-color: #f4f7fa; /* Replace with a background color or pattern */
+    width: 100%;
+    height: 200px;
+    background-color: #f4f7fa;
   }
 
   @media (max-width: 425px) {
     width: 100%;
-    height: 180px; /* Reduce height for mobile screens */
-    background-color: #f4f7fa; /* Background color for mobile */
-  }
-`;
-
-export const SignupWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh; /* Full-screen height */
-  background-color: ${({ theme }) => theme.colors.background};
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    padding: 20px;
+    height: 180px;
+    background-color: #f4f7fa;
   }
 `;
 
@@ -302,14 +411,6 @@ export const WelcomeMessage = styled.h2`
   margin-bottom: 20px;
 `;
 
-export const LoginWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #f4f4f9; /* Light gray background */
-  padding: 20px;
-`;
 export const StyledLogoutButton = styled.button`
   background-color: #ff4d4f;
   color: white;
@@ -330,32 +431,6 @@ export const StyledLogoutButton = styled.button`
   }
 `;
 
-export const purple = "white";
-export const darkPurple = "#4b0082";
-
-export const DashboardWrapper = styled.div`
-  background-color: #121212;
-  color: white;
-  padding: 2rem;
-`;
-
-export const Row = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-`;
-
-export const Column = styled.div`
-  flex: 1;
-  margin: 0 1rem;
-  background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px); /* Apply blur to create the glassy effect */
-  -webkit-backdrop-filter: blur(10px); /* For Safari */
-`;
-
 export const TableBody = styled.tbody`
   background-color: #444;
 `;
@@ -364,12 +439,6 @@ export const TableRow = styled.tr`
   &:hover {
     background-color: #555;
   }
-`;
-
-export const DashboardHeader = styled.h2`
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: ${purple};
 `;
 
 export const Subheader = styled.h3`
@@ -431,6 +500,28 @@ export const ChartContainer = styled.div`
   background-color: #f9f9f9;
 `;
 
+// Recent Transactions styles
+
+export const HeaderWrapper = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: ${({ theme }) => theme.spacing(3)};
+  background-color: ${({ theme }) => theme.colors.primary};
+`;
+
+export const Title = styled.h1`
+  font-family: ${({ theme }) => theme.fonts.secondary};
+  font-size: 2rem;
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
+    font-size: 1.5rem;
+  }
+
+  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
+    font-size: 1.25rem;
+  }
+`;
 export const Table = styled.table`
   width: 100%;
   border-collapse: collapse;
@@ -472,6 +563,7 @@ export const DeleteIcon = styled(FontAwesomeIcon)`
   margin-left: 10px;
 `;
 
+// AddTransaction styles
 export const SuccessMessage = styled.p`
   background-color: #d4edda;
   color: #155724;
@@ -481,4 +573,25 @@ export const SuccessMessage = styled.p`
   border: 1px solid #c3e6cb;
   margin-bottom: 15px;
   font-weight: bold;
+`;
+
+// Footer styles
+
+export const Footer = styled.footer`
+  bottom: 0;
+  width: 100%;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: white;
+  padding: 5px;
+  text-align: center;
+  z-index: 10;
+`;
+
+export const FooterWrapper = styled.footer`
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: white;
+  text-align: center;
+  padding: 20px;
+  margin-top: auto;
+  width: 100%;
 `;

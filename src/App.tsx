@@ -4,7 +4,7 @@ import Header from "./Header";
 import LandingPage from "./LandingPage";
 import Footer from "./Footer/Footer";
 import LoginPage from "./LoginPage";
-import { Container } from "./styles/styled";
+import { Container, MainContent } from "./styles/styled";
 import SignupForm from "./SignupForm";
 import Dashboard from "./Dashboard";
 import NewEntryForm from "./NewEntryForm";
@@ -15,28 +15,30 @@ const App: React.FC = () => {
     <Router>
       <Container>
         <Header />
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupForm />} />
+        <MainContent>
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupForm />} />
 
-          <Route
-            path="/dashboard"
-            element={
-              <PrivateRoute>
-                <Dashboard />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/addNew"
-            element={
-              <PrivateRoute>
-                <NewEntryForm />
-              </PrivateRoute>
-            }
-          />
-        </Routes>
+            <Route
+              path="/dashboard"
+              element={
+                <PrivateRoute>
+                  <Dashboard />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/addNew"
+              element={
+                <PrivateRoute>
+                  <NewEntryForm />
+                </PrivateRoute>
+              }
+            />
+          </Routes>
+        </MainContent>
         <Footer />
       </Container>
     </Router>
