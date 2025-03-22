@@ -1,88 +1,20 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+
 import { addTransaction } from "./services/budgetService";
 import { useSelector } from "react-redux";
 import { RootState } from "./redux/store";
-
-const FormContainer = styled.div`
-  max-width: 400px;
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  font-family: Arial, sans-serif;
-`;
-
-const FormTitle = styled.h2`
-  text-align: center;
-  margin-bottom: 15px;
-`;
-
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-`;
-
-const FormGroup = styled.div`
-  margin-bottom: 15px;
-`;
-
-const Label = styled.label`
-  font-weight: bold;
-  margin-bottom: 5px;
-  display: block;
-`;
-
-const Input = styled.input`
-  width: 100%;
-  padding: 8px;
-  font-size: 1em;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-`;
-
-const Select = styled.select`
-  width: 100%;
-  padding: 8px;
-  font-size: 1em;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-`;
-
-const TextArea = styled.textarea`
-  width: 100%;
-  padding: 8px;
-  font-size: 1em;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  resize: vertical;
-`;
-
-const Button = styled.button`
-  width: 100%;
-  padding: 10px;
-  font-size: 1em;
-  color: #fff;
-  background-color: #007bff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  &:hover {
-    background-color: #0056b3;
-  }
-`;
-
-const SuccessMessage = styled.div`
-  background-color: #d4edda;
-  color: #155724;
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 5px;
-  text-align: center;
-  font-weight: bold;
-  border: 1px solid #c3e6cb;
-`;
+import {
+  AddLabel,
+  AddButton,
+  AddForm,
+  AddInput,
+  AddSelect,
+  AddTextArea,
+  AddFormGroup,
+  AddSuccessMessage,
+  AddFormTitle,
+  AddFormContainer,
+} from "./styles/styled";
 
 const NewEntryForm: React.FC = () => {
   const [date, setDate] = useState<string>("");
@@ -125,34 +57,34 @@ const NewEntryForm: React.FC = () => {
   };
 
   return (
-    <FormContainer>
-      <FormTitle>Log a New Entry</FormTitle>
-      <Form onSubmit={handleSubmit}>
-        <FormGroup>
-          <Label htmlFor="date">Date</Label>
-          <Input
+    <AddFormContainer>
+      <AddFormTitle>Log a New Entry</AddFormTitle>
+      <AddForm onSubmit={handleSubmit}>
+        <AddFormGroup>
+          <AddLabel htmlFor="date">Date</AddLabel>
+          <AddInput
             type="date"
             id="date"
             value={date}
             onChange={(e) => setDate(e.target.value)}
             required
           />
-        </FormGroup>
+        </AddFormGroup>
 
-        <FormGroup>
-          <Label htmlFor="amount">Amount</Label>
-          <Input
+        <AddFormGroup>
+          <AddLabel htmlFor="amount">Amount</AddLabel>
+          <AddInput
             type="number"
             id="amount"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
             required
           />
-        </FormGroup>
+        </AddFormGroup>
 
-        <FormGroup>
-          <Label htmlFor="category">Category</Label>
-          <Select
+        <AddFormGroup>
+          <AddLabel htmlFor="category">Category</AddLabel>
+          <AddSelect
             id="category"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
@@ -164,24 +96,26 @@ const NewEntryForm: React.FC = () => {
             <option value="entertainment">Entertainment</option>
             <option value="housing">Housing</option>
             <option value="shopping">Shopping</option>
-          </Select>
-        </FormGroup>
+          </AddSelect>
+        </AddFormGroup>
 
-        <FormGroup>
-          <Label htmlFor="notes">Notes</Label>
-          <TextArea
+        <AddFormGroup>
+          <AddLabel htmlFor="notes">Notes</AddLabel>
+          <AddTextArea
             id="notes"
             rows={3}
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
           />
-        </FormGroup>
+        </AddFormGroup>
 
-        <Button type="submit">Add Entry</Button>
-      </Form>
+        <AddButton type="submit">Add Entry</AddButton>
+      </AddForm>
 
-      {successMessage && <SuccessMessage>{successMessage}</SuccessMessage>}
-    </FormContainer>
+      {successMessage && (
+        <AddSuccessMessage>{successMessage}</AddSuccessMessage>
+      )}
+    </AddFormContainer>
   );
 };
 
