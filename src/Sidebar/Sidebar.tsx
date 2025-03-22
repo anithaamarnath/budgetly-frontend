@@ -8,7 +8,7 @@ import {
   SidebarIcon,
   SidebarText,
 } from "../styles/styled";
-import { FaBars, FaHome, FaPlus, FaSignOutAlt } from "react-icons/fa";
+import { FaHome, FaPlus, FaSignOutAlt } from "react-icons/fa";
 
 interface SidebarProps {
   expanded: boolean;
@@ -30,13 +30,6 @@ const SidebarComponent: React.FC<SidebarProps> = ({
 
   return (
     <Sidebar expanded={expanded}>
-      <SidebarItem onClick={() => setExpanded(!expanded)}>
-        <SidebarIcon expanded={expanded}>
-          <FaBars />
-        </SidebarIcon>
-        <SidebarText expanded={expanded}>Menu</SidebarText>
-      </SidebarItem>
-
       <SidebarItem onClick={() => navigate("/dashboard")}>
         <SidebarIcon expanded={expanded}>
           <FaHome />
