@@ -22,6 +22,8 @@ import {
 } from "react-icons/fa";
 import { RootState } from "./redux/store";
 import { logout } from "./redux/authSlices";
+const MOBILE_WIDTH = 768;
+const TABLET_WIDTH = 1024;
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -29,15 +31,17 @@ const Header: React.FC = () => {
   const isLoggedIn = useSelector((state: RootState) => state.auth?.isLoggedIn);
   const user = useSelector((state: RootState) => state.auth?.name);
   const [expanded, setExpanded] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < MOBILE_WIDTH);
   const [isTablet, setIsTablet] = useState(
-    window.innerWidth >= 768 && window.innerWidth <= 1024
+    window.innerWidth >= MOBILE_WIDTH && window.innerWidth <= TABLET_WIDTH
   );
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-      setIsTablet(window.innerWidth >= 768 && window.innerWidth <= 1024);
+      setIsMobile(window.innerWidth < MOBILE_WIDTH);
+      setIsTablet(
+        window.innerWidth >= MOBILE_WIDTH && window.innerWidth <= TABLET_WIDTH
+      );
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
