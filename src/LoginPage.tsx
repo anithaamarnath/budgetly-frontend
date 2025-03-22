@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { LoginWrapper, FormColumn } from "./styles/styled";
+import {
+  LoginWrapper,
+  FormColumn,
+  ButtonWrapper,
+  Button,
+} from "./styles/styled";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "./services/authService";
 import { useDispatch, useSelector } from "react-redux";
@@ -90,7 +95,9 @@ const LoginPage: React.FC = () => {
             </div>
             {error && <p style={{ color: "red" }}>{error}</p>}
             <div>
-              <button type="submit">Log In</button>
+              <ButtonWrapper>
+                <Button type="submit">Log In</Button>
+              </ButtonWrapper>
             </div>
           </form>
         )}

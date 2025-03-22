@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { theme } from "../lib/theme";
 
 export const purple = "white";
 export const darkPurple = "#4b0082";
@@ -110,12 +111,32 @@ export const RightContainer = styled.div<{ expanded: boolean }>`
   overflow: hidden;
 `;
 
+// Button
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 20px; /* Add some space above the button */
+`;
+
+export const Button = styled.button`
+  background-color: ${theme.colors.primary};
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: ${theme.borderRadius};
+  font-size: 16px;
+  cursor: pointer;
+  width: auto;
+  &:hover {
+    background-color: ${theme.colors.secondary};
+  }
+`;
+
 // Login/Signup styles
 export const SignupWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
   background-color: ${({ theme }) => theme.colors.background};
 
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
@@ -126,7 +147,6 @@ export const SignupWrapper = styled.div`
 export const LoginSignUpWrapper = styled.section`
   display: flex;
   align-items: center;
-  height: 100vh;
   flex-direction: row;
 
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
@@ -146,7 +166,6 @@ export const LoginWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   background-color: #f4f4f9;
   padding: 20px;
 `;
@@ -359,14 +378,17 @@ export const ImageColumn = styled.div`
   }
 `;
 
+// Form styles
 export const FormColumn = styled.div`
   width: 100%;
   max-width: 400px;
   padding: 20px;
+  margin: 0 auto;
 
   h2 {
     margin-bottom: 20px;
     font-size: 1.8rem;
+    text-align: center;
     color: ${({ theme }) => theme.colors.primary};
   }
 
@@ -384,10 +406,16 @@ export const FormColumn = styled.div`
   input {
     margin-bottom: 15px;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid ${({ theme }) => theme.colors.primary};
     border-radius: 5px;
     font-size: 1rem;
     width: 100%;
+    color: ${({ theme }) => theme.colors.text};
+
+    &:focus {
+      outline: none;
+      border-color: ${({ theme }) => theme.colors.secondary};
+    }
   }
 
   button {
@@ -486,7 +514,7 @@ export const BudgetValueContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px; /* Space between the value and icon */
+  gap: 10px;
   font-size: 1.2rem;
 `;
 
@@ -577,7 +605,7 @@ export const EditIcon = styled(FontAwesomeIcon)`
 
 export const SaveIcon = styled(FontAwesomeIcon)`
   cursor: pointer;
-  color: #28a745; /* You can change the color to green to signify saving */
+  color: #28a745;
   margin-left: 10px;
 `;
 
