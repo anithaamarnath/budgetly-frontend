@@ -13,10 +13,6 @@ const Header: React.FC = () => {
     navigate("/login");
   };
 
-  const handleProfileClick = () => {
-    navigate("/profile");
-  };
-
   return (
     <HeaderWrapper>
       <Logo>Budgetly</Logo>
@@ -29,7 +25,7 @@ const Header: React.FC = () => {
             Login
           </span>
         ) : (
-          <ProfileIconWrapper onClick={handleProfileClick}>
+          <ProfileIconWrapper>
             <FaUserCircle size={30} />
             <span>{user}</span>
           </ProfileIconWrapper>
