@@ -1,46 +1,139 @@
-import React, { useState } from "react";
-import { HeaderWrapper, Logo, Nav, HamburgerIcon, Menu } from "./styles/styled";
-import LogoutButton from "./components/LogoutButton";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "./redux/store";
+import {
+  HeaderWrapper,
+  Logo,
+  ProfileSection,
+  ProfileIconWrapper,
+  MenuWrapper,
+  SidebarItem,
+  SidebarIcon,
+  SidebarText,
+  ToggleButton,
+} from "./styles/styled";
+import {
+  FaUserCircle,
+  FaBars,
+  FaHome,
+  FaPlus,
+  FaSignOutAlt,
+  FaChartPie,
+} from "react-icons/fa";
+import { RootState } from "./redux/store";
 import { logout } from "./redux/authSlices";
-import { Link } from "react-router-dom";
+const MOBILE_WIDTH = 768;
+const TABLET_WIDTH = 1024;
 
 const Header: React.FC = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
-  const isLoggedIn = useSelector((state: RootState) => state?.auth.isLoggedIn);
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state: RootState) => state.auth?.isLoggedIn);
+  const user = useSelector((state: RootState) => state.auth?.name);
+  const [expanded, setExpanded] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < MOBILE_WIDTH);
+  const [isTablet, setIsTablet] = useState(
+    window.innerWidth >= MOBILE_WIDTH && window.innerWidth <= TABLET_WIDTH
+  );
 
-  const toggleMenu = () => {
-    setIsMenuOpen((prevState) => !prevState);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < MOBILE_WIDTH);
+      setIsTablet(
+        window.innerWidth >= MOBILE_WIDTH && window.innerWidth <= TABLET_WIDTH
+      );
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const handleLoginClick = () => {
+    navigate("/login");
   };
 
   const handleLogout = () => {
     dispatch(logout());
-    navigate("/login");
+    setExpanded(false);
+    navigate("/");
   };
 
   return (
     <HeaderWrapper>
-      <Logo>Budgetly</Logo>
-      <HamburgerIcon onClick={toggleMenu}>☰</HamburgerIcon>
-      <Menu $isOpen={isMenuOpen}>
-        <Nav>
-          {isLoggedIn ? (
+      <Logo onClick={() => navigate("/dashboard")}>Expense Tracker</Logo>
+
+      {!isMobile && !isTablet && isLoggedIn && (
+        <ProfileSection>
+          <ProfileIconWrapper>
+            <FaUserCircle size={30} />
+            <span>{user}</span>
+          </ProfileIconWrapper>
+        </ProfileSection>
+      )}
+
+      {isLoggedIn && (isMobile || isTablet) && (
+        <ToggleButton onClick={() => setExpanded(!expanded)}>
+          <FaBars />
+        </ToggleButton>
+      )}
+
+      {!isLoggedIn ? (
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+          <span
+            style={{ cursor: "pointer", color: "white" }}
+            onClick={handleLoginClick}
+          >
+            Login
+          </span>
+        </div>
+      ) : (
+        (isMobile || isTablet) && (
+          <div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              cursor: "pointer",
+            }}
+            onClick={() => setExpanded(!expanded)}
+          ></div>
+        )
+      )}
+
+      {expanded && isLoggedIn && (
+        <MenuWrapper>
+          <SidebarItem onClick={() => navigate("/dashboard")}>
+            <SidebarIcon>
+              <FaHome />
+            </SidebarIcon>
+            <SidebarText>Dashboard</SidebarText>
+          </SidebarItem>
+
+          <SidebarItem onClick={() => navigate("/addNew")}>
+            <SidebarIcon>
+              <FaPlus />
+            </SidebarIcon>
+            <SidebarText>Add Expense</SidebarText>
+          </SidebarItem>
+
+          {(isMobile || isTablet) && (
             <>
-              <Link to="/dashboard">Dashboard</Link>
-              <Link to="/addNew">Add Expense</Link>
-              <LogoutButton onLogout={handleLogout} />
-            </>
-          ) : (
-            <>
-              <Link to="/login">Login</Link>
+              <SidebarItem onClick={() => navigate("/expense")}>
+                <SidebarIcon>
+                  <FaChartPie />
+                </SidebarIcon>
+                <SidebarText>Expense</SidebarText>
+              </SidebarItem>
             </>
           )}
-        </Nav>
-      </Menu>
+
+          <SidebarItem onClick={handleLogout}>
+            <SidebarIcon>
+              <FaSignOutAlt />
+            </SidebarIcon>
+            <SidebarText>Logout</SidebarText>
+          </SidebarItem>
+        </MenuWrapper>
+      )}
     </HeaderWrapper>
   );
 };

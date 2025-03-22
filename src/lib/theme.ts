@@ -1,4 +1,3 @@
-// src/lib/theme.ts
 import { createGlobalStyle } from 'styled-components';
 
 export const theme = {

@@ -8,8 +8,6 @@ const store = configureStore({
     auth: authReducer,
     form: formReducer,
     budget: budgetReducer,
-   
-  
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: false,

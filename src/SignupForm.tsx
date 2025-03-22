@@ -8,7 +8,13 @@ import {
   clearForm,
 } from "./redux/formSlice";
 import { RootState, AppDispatch } from "./redux/store";
-import { SignupWrapper, FormColumn, SuccessMessage } from "./styles/styled";
+import {
+  SignupWrapper,
+  FormColumn,
+  SuccessMessage,
+  ButtonWrapper,
+  Button,
+} from "./styles/styled";
 import { registerUser } from "./services/authService";
 import FormState from "./types";
 import { login } from "./redux/authSlices";
@@ -124,9 +130,11 @@ const SignupForm: React.FC = () => {
           </div>
           {error && <p style={{ color: "red" }}>{error}</p>}
           <div>
-            <button type="submit" disabled={loading}>
-              {loading ? "Signing Up..." : "Sign Up"}
-            </button>
+            <ButtonWrapper>
+              <Button type="submit" disabled={loading}>
+                {loading ? "Signing Up..." : "Sign Up"}
+              </Button>
+            </ButtonWrapper>
           </div>
         </form>
         <p>
