@@ -2,12 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../redux/authSlices";
-import {
-  Sidebar,
-  SidebarItem,
-  SidebarIcon,
-  SidebarText,
-} from "../styles/styled";
+import { Sidebar, SidebarItem, SidebarIcon } from "../styles/styled";
 import { FaHome, FaPlus, FaSignOutAlt } from "react-icons/fa";
 
 interface SidebarProps {
@@ -34,21 +29,21 @@ const SidebarComponent: React.FC<SidebarProps> = ({
         <SidebarIcon expanded={expanded}>
           <FaHome />
         </SidebarIcon>
-        <SidebarText expanded={expanded}>Dashboard</SidebarText>
+        {/* <SidebarText expanded={expanded}>Dashboard</SidebarText> */}
       </SidebarItem>
 
       <SidebarItem onClick={() => navigate("/addNew")}>
         <SidebarIcon expanded={expanded}>
           <FaPlus />
         </SidebarIcon>
-        <SidebarText expanded={expanded}>Add Expense</SidebarText>
+        {/* <SidebarText expanded={expanded}>Add Expense</SidebarText> */}
       </SidebarItem>
 
       <SidebarItem onClick={handleLogout}>
         <SidebarIcon expanded={expanded}>
           <FaSignOutAlt />
         </SidebarIcon>
-        <SidebarText expanded={expanded}>Logout</SidebarText>
+        {/* <SidebarText expanded={expanded}>Logout</SidebarText> */}
       </SidebarItem>
     </Sidebar>
   );
