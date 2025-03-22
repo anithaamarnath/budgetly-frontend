@@ -4,6 +4,114 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export const purple = "white";
 export const darkPurple = "#4b0082";
 
+// Navbar styles
+
+export const HeaderWrapper = styled.header`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: ${({ theme }) => theme.colors.primary};
+  color: white;
+  position: relative;
+`;
+
+export const Logo = styled.div`
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+`;
+
+export const ProfileSection = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+`;
+
+export const ToggleButton = styled.button`
+  background: none;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  display: block;
+  @media (min-width: 1024px) {
+    display: none;
+  }
+`;
+
+export const MenuWrapper = styled.div`
+  position: absolute;
+  top: 60px;
+  right: 10px;
+  background: #444;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+export const ProfileIconWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+`;
+
+export const ProfileDropdown = styled.div`
+  position: absolute;
+  top: 50px;
+  right: 0;
+  background: #444;
+  border-radius: 5px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+`;
+
+export const ProfileDropdownItem = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s ease;
+
+  &:hover {
+    background: #555;
+  }
+`;
+
+export const SidebarItem = styled.div`
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  width: 100%;
+  color: white;
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.secondary};
+  }
+`;
+
+export const SidebarIcon = styled.div`
+  margin-right: 10px;
+`;
+
+export const SidebarText = styled.span`
+  flex-grow: 1;
+`;
+
 // Header styles
 
 export const Header = styled.header`
@@ -16,47 +124,8 @@ export const Header = styled.header`
   z-index: 10;
   text-align: center;
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     padding: 10px;
-  }
-`;
-
-export const Logo = styled.div`
-  font-size: 1.8rem;
-  color: white;
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    font-size: 1.5rem;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    font-size: 1.2rem;
-  }
-`;
-
-export const ProfileIconWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  gap: 10px;
-  color: white;
-
-  span {
-    font-size: 16px;
-  }
-
-  &:hover {
-    color: #f0f0f0;
-  }
-
-  /* Mobile responsiveness */
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    gap: 8px;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    gap: 5px;
   }
 `;
 
@@ -65,7 +134,6 @@ export const Nav = styled.nav`
   justify-content: space-between;
   align-items: center;
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     flex-direction: column;
   }
@@ -115,7 +183,6 @@ export const MainContent = styled.div`
   overflow-y: auto;
   padding: 20px;
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     padding: 15px;
   }
@@ -131,7 +198,6 @@ export const Container = styled.div`
   height: 100vh;
   overflow: hidden;
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     padding: 10px;
   }
@@ -146,7 +212,6 @@ export const RightContainer = styled.div<{ expanded: boolean }>`
   height: calc(100vh - 60px);
   overflow: hidden;
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     margin-left: 0;
   }
@@ -157,7 +222,6 @@ export const ButtonWrapper = styled.div`
   justify-content: center;
   margin-top: 20px;
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     margin-top: 15px;
   }
@@ -177,7 +241,6 @@ export const Button = styled.button`
     background-color: ${({ theme }) => theme.colors.secondary};
   }
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     font-size: 14px;
     padding: 8px 16px;
@@ -226,12 +289,10 @@ export const Layout = styled.div`
   flex: 1;
   overflow: hidden;
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     flex-direction: column;
   }
 `;
-// =====
 
 // Dashboard styles
 
@@ -316,11 +377,10 @@ export const Sidebar = styled.div<{ expanded: boolean }>`
   flex-direction: column;
   transition: width 0.3s ease-in-out, margin-top 0.3s ease;
   overflow-y: auto;
-  margin-top: ${(props) => (props.expanded ? "90px" : "90px")};
+  margin-top: ${(props) => (props.expanded ? "40px" : "50px")};
   z-index: 2;
   transition: background-color 0.3s ease;
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     width: ${(props) => (props.expanded ? "200px" : "0")};
     padding-top: 10px;
@@ -341,82 +401,8 @@ export const SidebarFooter = styled.div`
   text-align: center;
   background-color: ${({ theme }) => theme.colors.secondary};
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     padding: 10px;
-  }
-`;
-
-export const SidebarItem = styled.div`
-  padding: 10px 20px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  font-size: 1.2rem;
-  width: 100%;
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.secondary};
-  }
-
-  svg {
-    margin-right: 10px;
-    transition: margin-right 0.3s ease;
-  }
-
-  /* Mobile responsiveness */
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    font-size: 1rem;
-    padding: 8px 15px;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    font-size: 0.9rem;
-    padding: 6px 10px;
-  }
-`;
-
-export const SidebarIcon = styled.div<{ expanded: boolean }>`
-  margin-right: ${(props) => (props.expanded ? "10px" : "0")};
-  transition: margin-right 0.3s ease;
-
-  /* Mobile responsiveness */
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    margin-right: ${(props) => (props.expanded ? "5px" : "0")};
-  }
-`;
-
-export const SidebarText = styled.span<{ expanded: boolean }>`
-  display: ${(props) => (props.expanded ? "inline" : "none")};
-  flex-grow: 1;
-  transition: display 0.3s ease-in-out;
-
-  /* Mobile responsiveness */
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    display: ${(props) => (props.expanded ? "inline" : "none")};
-  }
-`;
-
-export const ToggleButton = styled.button`
-  position: absolute;
-  top: 20px;
-  right: -25px;
-  background-color: ${({ theme }) => theme.colors.primary};
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 50%;
-  transition: transform 0.3s ease;
-
-  &:hover {
-    transform: scale(1.1);
-  }
-
-  /* Mobile responsiveness */
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    top: 15px;
-    right: -20px;
   }
 `;
 
@@ -669,7 +655,6 @@ export const DashboardContainer = styled.div`
   padding: 20px;
   font-family: Arial, sans-serif;
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     padding: 15px;
   }
@@ -687,7 +672,6 @@ export const Card = styled.div`
   border-radius: 8px;
   background-color: #f9f9f9;
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     margin: 10px 5px;
     padding: 15px;
@@ -706,7 +690,6 @@ export const ChartContainer = styled.div`
   border-radius: 8px;
   background-color: #f9f9f9;
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
     margin: 15px 0;
     padding: 15px;
@@ -715,27 +698,6 @@ export const ChartContainer = styled.div`
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     margin: 10px 0;
     padding: 10px;
-  }
-`;
-
-// Recent Transactions styles
-
-export const HeaderWrapper = styled.header`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: ${({ theme }) => theme.spacing(3)};
-  background-color: ${({ theme }) => theme.colors.primary};
-  border-bottom: 1px solid #ddd;
-
-  /* Mobile responsiveness */
-  @media (max-width: ${({ theme }) => theme.breakpoints.tablet}) {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-
-  @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
-    padding: ${({ theme }) => theme.spacing(2)};
   }
 `;
 
@@ -757,7 +719,6 @@ export const Table = styled.table`
   border-collapse: collapse;
   margin-top: 10px;
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     font-size: 0.9rem;
   }
@@ -769,7 +730,6 @@ export const TableHeader = styled.th`
   text-align: left;
   background-color: #f2f2f2;
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     padding: 6px;
     font-size: 0.9rem;
@@ -780,7 +740,6 @@ export const TableCell = styled.td`
   border: 1px solid #ccc;
   padding: 8px;
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     padding: 6px;
     font-size: 0.9rem;
@@ -791,7 +750,6 @@ export const Input = styled.input`
   padding: 5px;
   font-size: 1em;
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     font-size: 0.9em;
     padding: 4px;
@@ -803,7 +761,6 @@ export const EditIcon = styled(FontAwesomeIcon)`
   color: #007bff;
   margin-left: 10px;
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     margin-left: 5px;
   }
@@ -814,7 +771,6 @@ export const SaveIcon = styled(FontAwesomeIcon)`
   color: #28a745;
   margin-left: 10px;
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     margin-left: 5px;
   }
@@ -825,7 +781,6 @@ export const DeleteIcon = styled(FontAwesomeIcon)`
   color: #dc3545;
   margin-left: 10px;
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     margin-left: 5px;
   }
@@ -840,7 +795,6 @@ export const SuccessMessage = styled.p`
   margin-bottom: 15px;
   font-weight: bold;
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     font-size: 0.9rem;
     margin-bottom: 10px;
@@ -857,7 +811,6 @@ export const AddFormContainer = styled.div`
   background-color: ${({ theme }) => theme.colors.background};
   font-family: Arial, sans-serif;
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     max-width: 100%;
     padding: 15px;
@@ -869,7 +822,6 @@ export const AddFormTitle = styled.h2`
   margin-bottom: 15px;
   color: ${({ theme }) => theme.colors.primary};
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     font-size: 1.2em;
   }
@@ -879,7 +831,6 @@ export const AddForm = styled.form`
   display: flex;
   flex-direction: column;
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     padding: 5px;
   }
@@ -888,7 +839,6 @@ export const AddForm = styled.form`
 export const AddFormGroup = styled.div`
   margin-bottom: 15px;
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     margin-bottom: 12px;
   }
@@ -900,7 +850,6 @@ export const AddLabel = styled.label`
   display: block;
   color: ${({ theme }) => theme.colors.text};
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     font-size: 0.9em;
   }
@@ -919,7 +868,6 @@ export const AddInput = styled.input`
     border-color: ${({ theme }) => theme.colors.secondary};
   }
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     font-size: 0.9em;
     padding: 6px;
@@ -939,7 +887,6 @@ export const AddSelect = styled.select`
     border-color: ${({ theme }) => theme.colors.secondary};
   }
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     font-size: 0.9em;
     padding: 6px;
@@ -960,7 +907,6 @@ export const AddTextArea = styled.textarea`
     border-color: ${({ theme }) => theme.colors.secondary};
   }
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     font-size: 0.9em;
     padding: 6px;
@@ -981,7 +927,6 @@ export const AddButton = styled.button`
     background-color: ${({ theme }) => theme.colors.secondary};
   }
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     padding: 8px;
     font-size: 0.9em;
@@ -998,7 +943,6 @@ export const AddSuccessMessage = styled.div`
   font-weight: bold;
   border: 1px solid ${({ theme }) => theme.colors.successBorder};
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     font-size: 0.9em;
     padding: 8px;
@@ -1013,7 +957,6 @@ export const FooterWrapper = styled.footer`
   margin-top: auto;
   width: 100%;
 
-  /* Mobile responsiveness */
   @media (max-width: ${({ theme }) => theme.breakpoints.mobile}) {
     padding: 15px;
     font-size: 14px;
