@@ -26,21 +26,21 @@ const SidebarComponent: React.FC<SidebarProps> = ({
   return (
     <Sidebar expanded={expanded}>
       <SidebarItem onClick={() => navigate("/dashboard")}>
-        <SidebarIcon expanded={expanded}>
+        <SidebarIcon>
           <FaHome />
         </SidebarIcon>
         {/* <SidebarText expanded={expanded}>Dashboard</SidebarText> */}
       </SidebarItem>
 
       <SidebarItem onClick={() => navigate("/addNew")}>
-        <SidebarIcon expanded={expanded}>
+        <SidebarIcon>
           <FaPlus />
         </SidebarIcon>
         {/* <SidebarText expanded={expanded}>Add Expense</SidebarText> */}
       </SidebarItem>
 
       <SidebarItem onClick={handleLogout}>
-        <SidebarIcon expanded={expanded}>
+        <SidebarIcon>
           <FaSignOutAlt />
         </SidebarIcon>
         {/* <SidebarText expanded={expanded}>Logout</SidebarText> */}
