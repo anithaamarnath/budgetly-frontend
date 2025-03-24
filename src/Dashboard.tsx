@@ -40,6 +40,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+// import Forecast from "./Forecast";
 
 // Registering the necessary components for chart.js
 ChartJS.register(
@@ -271,6 +272,7 @@ const Dashboard: React.FC = () => {
               </div>
             </div>
           </Row>
+          {/* <Forecast transactions={transactions} /> */}
         </div>
       </div>
     </DashboardContainer>

@@ -12,6 +12,7 @@ import Dashboard from "./Dashboard";
 import NewEntryForm from "./NewEntryForm";
 import PrivateRoute from "./components/PrivateRoute";
 import { Container, MainContent, RightContainer } from "./styles/styled";
+import Expense from "./Expense";
 
 const App: React.FC = () => {
   const [sidebarExpanded, setSidebarExpanded] = useState(false);
@@ -44,6 +45,14 @@ const App: React.FC = () => {
                     element={
                       <PrivateRoute>
                         <NewEntryForm />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    path="/expense"
+                    element={
+                      <PrivateRoute>
+                        <Expense />
                       </PrivateRoute>
                     }
                   />
