@@ -75,6 +75,8 @@ Then run:
 
 <img width="1440" alt="Screenshot 2025-03-24 at 12 27 12 PM" src="https://github.com/user-attachments/assets/440265ec-428b-4499-ab10-5031955c5e0d" />
 
+### Recent Transaction Edit
+<img width="1440" alt="Screenshot 2025-03-24 at 12 30 50 PM" src="https://github.com/user-attachments/assets/c40968e7-60e5-4268-a52b-1ac7cab8668c" />
 
 
 
