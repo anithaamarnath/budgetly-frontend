@@ -55,25 +55,26 @@ Then run:
 
 ### Landing Page
 
-<img width="917" alt="Screenshot 2025-02-20 at 1 54 03 PM" src="https://github.com/user-attachments/assets/4841211a-8665-4777-9342-85da1a6b1586" />
+<img width="1440" alt="Screenshot 2025-03-24 at 12 27 29 PM" src="https://github.com/user-attachments/assets/351f089e-2c9e-41e5-9e58-62810dc5b528" />
+
 
 ### Signup 
-<img width="930" alt="Screenshot 2025-02-20 at 1 54 22 PM" src="https://github.com/user-attachments/assets/cca894c3-3186-430f-8538-80a0c2e23869" />
+<img width="1440" alt="Screenshot 2025-03-24 at 12 28 11 PM" src="https://github.com/user-attachments/assets/90c0e3ef-6c1c-413b-80c2-2fd7a3f02112" />
 
-<img width="930" alt="Screenshot 2025-02-20 at 1 55 01 PM" src="https://github.com/user-attachments/assets/30b8c771-1538-440f-9224-c4bd43cd84d7" />
+### Signin 
+<img width="1440" alt="Screenshot 2025-03-24 at 12 28 05 PM" src="https://github.com/user-attachments/assets/078b3846-618c-4450-bf84-7cc0a1218652" />
+
 
 ### Add Transaction
-<img width="930" alt="Screenshot 2025-02-20 at 1 55 56 PM" src="https://github.com/user-attachments/assets/e74f6277-dde0-4007-80ac-b740de992cbd" />
+<img width="1440" alt="Screenshot 2025-03-24 at 12 27 18 PM" src="https://github.com/user-attachments/assets/ae5b0c0e-34e7-407b-8f18-7640fb1b5ab5" />
 
 
 ### Dashboard View
-<img width="930" alt="Screenshot 2025-02-20 at 1 56 21 PM" src="https://github.com/user-attachments/assets/481a31bc-455f-4b99-8193-9ca3167fd18d" />
 
+<img width="1440" alt="Screenshot 2025-03-24 at 12 27 01 PM" src="https://github.com/user-attachments/assets/b487ed3b-57e7-416a-a654-2f7efe21f80c" />
 
-<img width="930" alt="Screenshot 2025-02-20 at 1 56 46 PM" src="https://github.com/user-attachments/assets/a5d76d9a-4828-46dd-ac13-5c7988584bc9" />
+<img width="1440" alt="Screenshot 2025-03-24 at 12 27 12 PM" src="https://github.com/user-attachments/assets/440265ec-428b-4499-ab10-5031955c5e0d" />
 
-
-<img width="762" alt="Screenshot 2025-02-20 at 1 57 13 PM" src="https://github.com/user-attachments/assets/00ff1d7f-88c9-40f2-8511-85ffebefbb9d" />
 
 
 
